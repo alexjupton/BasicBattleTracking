@@ -63,7 +63,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\d20.ico</ApplicationIcon>
@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\Die.cs" />
     <Compile Include="FighterDetail\Save.cs" />
     <Compile Include="Forms\AddFighterWindow.cs">
       <SubType>Form</SubType>
@@ -186,11 +187,11 @@
     <Compile Include="Forms\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PC Initiative.cs">
+    <Compile Include="Forms\PCInitiative.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PC Initiative.Designer.cs">
-      <DependentUpon>PC Initiative.cs</DependentUpon>
+    <Compile Include="Forms\PCInitiative.Designer.cs">
+      <DependentUpon>PCInitiative.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,8 +264,8 @@
     <EmbeddedResource Include="Forms\OptionScreen.resx">
       <DependentUpon>OptionScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PC Initiative.resx">
-      <DependentUpon>PC Initiative.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PCInitiative.resx">
+      <DependentUpon>PCInitiative.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

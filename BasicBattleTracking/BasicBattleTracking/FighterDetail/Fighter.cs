@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Threading.Tasks;
-using BasicBattleTracking.FighterDetail;
+using BasicBattleTracking.Dice;
 
-namespace BasicBattleTracking
+namespace BasicBattleTracking.FighterDetail
 {
     [Serializable()]
     public class Fighter
@@ -29,19 +29,22 @@ namespace BasicBattleTracking
         public Save Reflex { get; set; }
         public Save Fort { get; set; }
 
-        public int will { get {
-            if (Will != null)
+        public int will
+        {
+            get
             {
-                return Will.total;
+                if (Will != null)
+                {
+                    return Will.total;
+                }
+                else
+                {
+                    return willSave;
+                }
             }
-            else
-            {
-                return willSave;
-            }
-        }
             set
             {
-                if(Will != null)
+                if (Will != null)
                 {
                     Will.total = value;
                 }
@@ -76,19 +79,22 @@ namespace BasicBattleTracking
                 }
             }
         }
-        public int fort {get {
-            if (Fort != null)
+        public int fort
+        {
+            get
             {
-                return Fort.total;
+                if (Fort != null)
+                {
+                    return Fort.total;
+                }
+                else
+                {
+                    return fortSave;
+                }
             }
-            else
-            {
-                return fortSave;
-            }
-        }
             set
             {
-                if(Fort != null)
+                if (Fort != null)
                 {
                     Fort.total = value;
                 }
@@ -192,49 +198,49 @@ namespace BasicBattleTracking
         public void ApplyNegativeLevels(int count)
         {
             int difference = count - NegativeLevels;
-                if (difference > 0)
+            if (difference > 0)
+            {
+                for (int i = 0; i < difference; i++)
                 {
-                    for (int i = 0; i < difference; i++)
-                    {
-                        HP -= 5;
-                        CMD -= 1;
-                        CMB -= 1;
-                        Fort.total -= 1;
-                        Will.total -= 1;
-                        Reflex.total -= 1;
+                    HP -= 5;
+                    CMD -= 1;
+                    CMB -= 1;
+                    Fort.total -= 1;
+                    Will.total -= 1;
+                    Reflex.total -= 1;
 
-                        foreach (Attack atk in attacks)
+                    foreach (Attack atk in attacks)
+                    {
+                        atk.atkBonus -= 1;
+                        for (int j = 0; j < atk.atkBonuses.Count; j++)
                         {
-                            atk.atkBonus -= 1;
-                            for (int j = 0; j < atk.atkBonuses.Count; j++)
-                            {
-                                atk.atkBonuses[j] -= 1;
-                            }
+                            atk.atkBonuses[j] -= 1;
                         }
                     }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 0; i < Math.Abs(difference); i++)
                 {
-                    for (int i = 0; i < Math.Abs(difference); i++)
-                    {
-                        HP += 5;
-                        CMD += 1;
-                        CMB += 1;
-                        Fort.total += 1;
-                        Will.total += 1;
-                        Reflex.total += 1;
+                    HP += 5;
+                    CMD += 1;
+                    CMB += 1;
+                    Fort.total += 1;
+                    Will.total += 1;
+                    Reflex.total += 1;
 
-                        foreach (Attack atk in attacks)
+                    foreach (Attack atk in attacks)
+                    {
+                        atk.atkBonus += 1;
+                        for (int j = 0; j < atk.atkBonuses.Count; j++)
                         {
-                            atk.atkBonus += 1;
-                            for (int j = 0; j < atk.atkBonuses.Count; j++)
-                            {
-                                atk.atkBonuses[j] += 1;
-                            }
+                            atk.atkBonuses[j] += 1;
                         }
                     }
                 }
-                NegativeLevels = count;
+            }
+            NegativeLevels = count;
         }
 
         public void ApplyGlobalAttackMod(int count)
@@ -242,11 +248,11 @@ namespace BasicBattleTracking
             int difference = attackMod - count;
             if (difference > 0)
             {
-                for(int i = 0; i < difference; i ++)
+                for (int i = 0; i < difference; i++)
                 {
-                    for(int j = 0; j < attacks.Count; j++)
+                    for (int j = 0; j < attacks.Count; j++)
                     {
-                        for(int k = 0; k < attacks.ElementAt(j).atkBonuses.Count; k++)
+                        for (int k = 0; k < attacks.ElementAt(j).atkBonuses.Count; k++)
                         {
                             int newValue = attacks.ElementAt(j).atkBonuses.ElementAt(k) - 1;
                             attacks.ElementAt(j).atkBonuses.RemoveAt(k);
@@ -275,12 +281,16 @@ namespace BasicBattleTracking
 
         public void UpdateStatusTargets()
         {
-            foreach(Status effect in StatusEffects)
+            foreach (Status effect in StatusEffects)
             {
                 effect.SetTarget(this);
             }
         }
 
-
+        public async Task RollInitiative()
+        {
+            int result = await Task.Run(() => Die.RollD20() + InitBonus);
+            Initiative = result;
+        }
     }
 }

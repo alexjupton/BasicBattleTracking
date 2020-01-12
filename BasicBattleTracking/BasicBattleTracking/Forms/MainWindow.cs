@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using BasicBattleTracking.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -39,6 +40,8 @@ namespace BasicBattleTracking
         private bool SkipCheckboxUpdate { get; set; }
 
         public Fighter CharSheetFighter { get; set; }
+
+        private Encounter encounter;
         public MainWindow()
         {
             session = new SessionController(this);
@@ -55,6 +58,7 @@ namespace BasicBattleTracking
             skillsTab1.ParentWindow = this;
             notesTab1.sendSettings(session.settings);
             this.FormClosing += new FormClosingEventHandler(this.Form1_Closing);
+            encounter = new Encounter(combatants);
 
             //DB Load
             string[] spellLines = SpellDB.GetDBLines();
@@ -218,9 +222,9 @@ namespace BasicBattleTracking
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            RollInit();
+            await RollInitiative();
             AutoSave();
 
         }
@@ -237,88 +241,9 @@ namespace BasicBattleTracking
             //}
         }
 
-        private void RollInit()
+        private async Task RollInitiative()
         {
-            cancelInit = false;
-            List<Fighter> PCs = new List<Fighter>();
-            List<Fighter> Enemies = new List<Fighter>();
-
-            foreach (Fighter f in combatants)
-            {
-                if (f.isPC)
-                    PCs.Add(f);
-                else
-                    Enemies.Add(f);
-            }
-
-            combatants.Clear();
-
-            PC_Initiative initWindow = new PC_Initiative(this);
-            initWindow.setPCList(PCs);
-
-            Random randy = new Random();
-
-            foreach (Fighter enemy in Enemies)
-            {
-                enemy.Initiative = (randy.Next(20) + 1 + enemy.InitBonus);
-                foreach (Attack atk in enemy.attacks)
-                {
-                    atk.atkCount = 0;
-                }
-                combatants.Add(enemy);
-            }
-            if (PCs.Count > 0)
-            {
-                initWindow.ShowDialog();
-            }
-            UpdateFighterList();
-
-            if (cancelInit)
-            {
-                return;
-            }
-            else
-            {
-
-                combatRound++;
-                activeIndex = 0;
-
-                turnLabel.Text = combatRound.ToString();
-                WriteToLog("===============  Start of turn " + combatRound.ToString() + "  ===============");
-                WriteToLog("ROLLED INITIATIVE");
-                foreach (Fighter f in combatants)
-                {
-                    string sign = "+";
-                    if (f.InitBonus < 0)
-                        sign = "";
-                    WriteToLog(f.Name + " rolls " + f.Initiative.ToString() + " (" + (f.Initiative - f.InitBonus).ToString() + " " + sign + " " + f.InitBonus + ").");
-                }
-
-                WriteToLog("");
-                WriteToLog(fighterOrder.ElementAt(0) + " will.total go first");
-
-                activeLabel.Text = fighterOrder.ElementAt(0);
-
-                enableTurnButtons();
-
-                //update status effects
-                foreach (Fighter f in combatants)
-                {
-                    if (f.StatusEffects.Count > 0)
-                    {
-                        foreach (Status effect in f.StatusEffects)
-                        {
-                            effect.Turns--;
-                        }
-                    }
-                    f.HoldAction = false;
-                }
-            }
-            selectedFighter = activeIndex;
-            updateFighterInfo(activeIndex);
-            UpdateFighterList();
-            
-            
+            await encounter.BeginRollInitiative();
         }
 
         public void AddMultipleFighters(List<Fighter> fList)
@@ -358,85 +283,8 @@ namespace BasicBattleTracking
 
         }
         //NEXT button
-        private void button4_Click(object sender, EventArgs e)
+        private void nextButton_Click(object sender, EventArgs e)
         {
-
-            AdvanceFighter();
-            
-        }
-
-        private void AdvanceFighter()
-        {
-           
-            if (holdFlag)
-            {
-                activeIndex = savedIndex;
-                holdFlag = false;
-            }
-            else
-            {
-                activeIndex++;
-            }
-            bool showNext = true;
-            
-            if (activeIndex >= fighterOrder.Count)
-            {
-                activeIndex = 0;
-                if (session.settings.initEachRound)
-                {
-                    DialogResult confirmnInit = MessageBox.Show("End of initiative order. Roll next round?", "End of Round", MessageBoxButtons.YesNo);
-                    if (confirmnInit == DialogResult.Yes)
-                    {
-                        RollInit();
-                        showNext = false;
-                    }
-                }
-                else
-                {
-                    combatRound++;
-                    if(combatRound > 9999)
-                    {
-                        combatRound = 9999;
-                    }
-                    activeIndex = 0;
-
-                    turnLabel.Text = combatRound.ToString();
-                    WriteToLog("===============  Start of turn " + combatRound.ToString() + "  ===============");
-                }
-                foreach (Fighter f in combatants)
-                {
-                    foreach (Status s in f.StatusEffects)
-                    {
-                        s.Turns--;
-                    }
-                }
-                AutoSave();
-            }
-            activeLabel.Text = fighterOrder.ElementAt(activeIndex);
-            if(showNext)
-            {
-                WriteToLog(fighterOrder.ElementAt(activeIndex) + " will go next.");
-
-                for (int i = 0; i < combatants.ElementAt(activeIndex).StatusEffects.Count; i++)
-                {
-                    Status effect = combatants.ElementAt(activeIndex).StatusEffects.ElementAt(i);
-                    if (combatants.ElementAt(activeIndex).StatusEffects.ElementAt(i).Turns <= 0)
-                    {
-
-                        combatants.ElementAt(activeIndex).StatusEffects.RemoveAt(i);
-                        WriteToLog(combatants.ElementAt(activeIndex).Name + " is no longer affected by " + effect.Name + "!");
-                    }
-                    else
-                    {
-                        WriteToLog(combatants.ElementAt(activeIndex).Name + " is affected by " + effect.Name + "! Effects: " + effect.Description);
-                    }
-                }
-
-                UpdateFighterList();
-            }
-            selectedFighter = activeIndex;
-            updateFighterInfo(activeIndex);
-
             
         }
 
@@ -685,7 +533,6 @@ namespace BasicBattleTracking
         {
             WriteToLog(activeLabel.Text + " holds action!");
             combatants.ElementAt(activeIndex).HoldAction = true;
-            AdvanceFighter();
         }
 
         public void LogAttack(string victimName, int damage)
@@ -2262,18 +2109,16 @@ namespace BasicBattleTracking
         private void SetToFirstTurn()
         {
             combatRound = 0;
-            AdvanceFighter();
         }
 
-        private void rollInitiativeToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void rollInitiativeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RollInit();
+            await RollInitiative();
             AutoSave();
         }
 
         private void nextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdvanceFighter();
             AutoSave();
         }
 

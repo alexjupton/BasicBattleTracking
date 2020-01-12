@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using BasicBattleTracking.FighterDetail;
 
 namespace BasicBattleTracking
 {

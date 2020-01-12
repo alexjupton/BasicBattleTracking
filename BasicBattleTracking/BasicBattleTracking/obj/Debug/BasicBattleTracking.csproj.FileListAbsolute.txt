@@ -191,3 +191,5 @@ D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTr
 D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\obj\Debug\BasicBattleTracking.application
 D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\obj\Debug\BasicBattleTracking.CharacterSheet.resources
 D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\obj\Debug\BasicBattleTracking.Forms.UserControls.DiceTab.resources
+D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\obj\Debug\BasicBattleTracking.csprojAssemblyReference.cache
+D:\Users\TheBoss\Desktop\Basic Battle Tracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\obj\Debug\BasicBattleTracking.csproj.CoreCompileInputs.cache
