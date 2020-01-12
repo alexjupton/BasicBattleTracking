@@ -197,7 +197,7 @@ namespace BasicBattleTracking
         {
             RollSkillCheck();
         }
-        private void RollSkillCheck()
+        private string RollSkillCheck()
         {
             string shortName = selectedSkill.name.ToUpper();
             if (shortName.Length > 16)
@@ -214,7 +214,13 @@ namespace BasicBattleTracking
             WriteToRollConsole("Total: " + result.ToString());
             WriteToRollConsole("");
             rollResultLabel.Text = result.ToString();
-            ParentWindow.WriteToLog(activeFighter.Name + " made a " + selectedSkill.name + " check of " + result.ToString() + "!");
+            string log = activeFighter.Name + " made a " + selectedSkill.name + " check of " + result.ToString() + "!";
+            if (ParentWindow != null)
+            {
+                ParentWindow.WriteToLog(log);
+            }
+            return log;
+
         }
 
         public void PrepareSkillCheck(int skillIndex)

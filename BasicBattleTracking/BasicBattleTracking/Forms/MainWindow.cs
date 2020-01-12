@@ -37,6 +37,8 @@ namespace BasicBattleTracking
 
         public List<object> Fields { get; set; }
         private bool SkipCheckboxUpdate { get; set; }
+
+        public Fighter CharSheetFighter { get; set; }
         public MainWindow()
         {
             session = new SessionController(this);
@@ -53,6 +55,10 @@ namespace BasicBattleTracking
             skillsTab1.ParentWindow = this;
             notesTab1.sendSettings(session.settings);
             this.FormClosing += new FormClosingEventHandler(this.Form1_Closing);
+
+            //DB Load
+            string[] spellLines = SpellDB.GetDBLines();
+            WriteToLog("Spell database size: " + spellLines.Length);
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,6 +77,7 @@ namespace BasicBattleTracking
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Visible = false;
             combatants = new List<Fighter>();
             fighterOrder = new List<string>();
             statusEffects = new List<Status>();
@@ -87,6 +94,10 @@ namespace BasicBattleTracking
             //TestDPercentTable();
             WriteToLog("Now with a hotfix directly off the skillet");
             session.SetDirty(false);
+            this.Visible = true;
+            Program.EndSplashScreen();
+
+
         }
 
 
@@ -284,7 +295,7 @@ namespace BasicBattleTracking
                 }
 
                 WriteToLog("");
-                WriteToLog(fighterOrder.ElementAt(0) + " will go first");
+                WriteToLog(fighterOrder.ElementAt(0) + " will.total go first");
 
                 activeLabel.Text = fighterOrder.ElementAt(0);
 
@@ -459,7 +470,7 @@ namespace BasicBattleTracking
             }
             activeLabel.Text = fighterOrder.ElementAt(activeIndex);
 
-            WriteToLog(fighterOrder.ElementAt(activeIndex) + " will go next.");
+            WriteToLog(fighterOrder.ElementAt(activeIndex) + " will.total go next.");
 
             updateFighterInfo(activeIndex);
             selectedFighter = activeIndex;
@@ -857,27 +868,27 @@ namespace BasicBattleTracking
 
         }
 
-        private void FortButton_Click(object sender, EventArgs e)
+        private void fortButton_Click(object sender, EventArgs e)
         {
-            FortCheck();
+            fortCheck();
         }
 
-        private void FortCheck()
+        private void fortCheck()
         {
             SetDamageInfoEnable(false);
-            WriteToRollConsole("=====Fortitude Save=====");
+            WriteToRollConsole("=====fort.totalitude Save=====");
             Random randy = new Random();
             int result = randy.Next(20) + 1;
             d20Label.Text = result.ToString();
             WriteToRollConsole("Roll: " + result.ToString());
-            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).fort.ToString());
-            atkModBox.Text = combatants.ElementAt(selectedFighter).fort.ToString();
-            result += combatants.ElementAt(selectedFighter).fort;
+            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).Fort.total.ToString());
+            atkModBox.Text = combatants.ElementAt(selectedFighter).Fort.total.ToString();
+            result += combatants.ElementAt(selectedFighter).Fort.total;
             WriteToRollConsole("");
             WriteToRollConsole("Total: " + result.ToString());
             WriteToRollConsole("");
             rollResultLabel.Text = result.ToString();
-            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a Fortitude Save of " + result.ToString() + "!");
+            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a fort.totalitude Save of " + result.ToString() + "!");
 
         }
 
@@ -889,43 +900,43 @@ namespace BasicBattleTracking
         private void RefCheck()
         {
             SetDamageInfoEnable(false);
-            WriteToRollConsole("=====Reflex Save=====");
+            WriteToRollConsole("=====reflex.total Save=====");
             Random randy = new Random();
             int result = randy.Next(20) + 1;
             d20Label.Text = result.ToString();
             WriteToRollConsole("Roll: " + result.ToString());
-            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).reflex.ToString());
-            atkModBox.Text = combatants.ElementAt(selectedFighter).reflex.ToString();
-            result += combatants.ElementAt(selectedFighter).reflex;
+            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).Reflex.total.ToString());
+            atkModBox.Text = combatants.ElementAt(selectedFighter).Reflex.total.ToString();
+            result += combatants.ElementAt(selectedFighter).Reflex.total;
             WriteToRollConsole("");
             WriteToRollConsole("Total: " + result.ToString());
             WriteToRollConsole("");
             rollResultLabel.Text = result.ToString();
-            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a Reflex Save of " + result.ToString() + "!");
+            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a reflex.total Save of " + result.ToString() + "!");
 
         }
 
-        private void WillButton_Click(object sender, EventArgs e)
+        private void willButton_Click(object sender, EventArgs e)
         {
-            WillCheck();
+            willCheck();
         }
 
-        private void WillCheck()
+        private void willCheck()
         {
             SetDamageInfoEnable(false);
-            WriteToRollConsole("=====Will Save=====");
+            WriteToRollConsole("=====will.total Save=====");
             Random randy = new Random();
             int result = randy.Next(20) + 1;
             d20Label.Text = result.ToString();
             WriteToRollConsole("Roll: " + result.ToString());
-            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).will.ToString());
-            atkModBox.Text = combatants.ElementAt(selectedFighter).will.ToString();
-            result += combatants.ElementAt(selectedFighter).will;
+            WriteToRollConsole("Modifier: " + combatants.ElementAt(selectedFighter).Will.total.ToString());
+            atkModBox.Text = combatants.ElementAt(selectedFighter).Will.total.ToString();
+            result += combatants.ElementAt(selectedFighter).Will.total;
             WriteToRollConsole("");
             WriteToRollConsole("Total: " + result.ToString());
             WriteToRollConsole("");
             rollResultLabel.Text = result.ToString();
-            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a Will Save of " + result.ToString() + "!");
+            WriteToLog(combatants.ElementAt(selectedFighter).Name + " made a will.total Save of " + result.ToString() + "!");
 
         }
 
@@ -1046,9 +1057,9 @@ namespace BasicBattleTracking
                 cmbLabel.Text = update.CMB.ToString();
                 cmdLabel.Text = update.CMD.ToString();
                 initBox.Text = update.InitBonus.ToString();
-                fortBox.Text = update.fort.ToString();
-                refBox.Text = update.reflex.ToString();
-                willBox.Text = update.will.ToString();
+                fortBox.Text = update.Fort.total.ToString();
+                refBox.Text = update.Reflex.total.ToString();
+                willBox.Text = update.Will.total.ToString();
                 npcNameBox.Text = update.Name;
                 npcSPBox.Text = update.SpellPoints.ToString();
                 npcSRBox.Text = update.SpellResist.ToString();
@@ -1283,7 +1294,7 @@ namespace BasicBattleTracking
                 try
                 {
                     newVal = Int32.Parse(fortBox.Text);
-                    combatants.ElementAt(selectedFighter).fort = newVal;
+                    combatants.ElementAt(selectedFighter).Fort.total = newVal;
                 }
                 catch { }
 
@@ -1298,7 +1309,7 @@ namespace BasicBattleTracking
                 try
                 {
                     newVal = Int32.Parse(refBox.Text);
-                    combatants.ElementAt(selectedFighter).reflex = newVal;
+                    combatants.ElementAt(selectedFighter).Reflex.total = newVal;
                 }
                 catch { }
 
@@ -1313,7 +1324,7 @@ namespace BasicBattleTracking
                 try
                 {
                     newVal = Int32.Parse(willBox.Text);
-                    combatants.ElementAt(selectedFighter).will = newVal;
+                    combatants.ElementAt(selectedFighter).Will.total = newVal;
                 }
                 catch { }
 
@@ -2162,10 +2173,15 @@ namespace BasicBattleTracking
               unholdButton.Text = "Unhold " + selectedFighterObject.Name;
           }
               UpdateFighterList();
-              
-          
-          session.SetDirty(false);
-           
+
+              if (session != null)
+              {
+                  session.SetDirty(false);
+              }
+              else
+              {
+                  session = new SessionController(this);
+              }
                
 
                      }
@@ -2305,7 +2321,7 @@ namespace BasicBattleTracking
 
         private void fortitudeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FortCheck();
+            fortCheck();
         }
 
         private void reflexToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2315,7 +2331,7 @@ namespace BasicBattleTracking
 
         private void willToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WillCheck();
+            willCheck();
         }
 
         private void holdActionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2327,6 +2343,25 @@ namespace BasicBattleTracking
         {
 
         }
+
+        private void viewCharacterSheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateCharSheet();
+        }
+
+        private void GenerateCharSheet()
+        {
+            if(selectedFighterObject != null)
+            {
+                CharacterSheet sheet = new CharacterSheet();
+                editFighter = this.selectedFighterObject;
+                sheet.SendFighter(this.selectedFighterObject);
+                sheet.SendTracker(this);
+                this.Visible = false;
+                sheet.Show();
+            }
+        }
+
 
 
 

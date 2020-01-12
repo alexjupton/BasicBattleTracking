@@ -166,6 +166,9 @@ namespace BasicBattleTracking
                 }
             }
 
+            if (!editMode)
+                newFighter.MaxHP = HP;
+
             try
             {
                 newFighter.AC = Int32.Parse(ACValBox.Text);
@@ -173,9 +176,9 @@ namespace BasicBattleTracking
                 newFighter.TouchAC = Int32.Parse(touchBox.Text);
                 newFighter.CMB = Int32.Parse(CMBBox.Text);
                 newFighter.CMD = Int32.Parse(CMDBox.Text);
-                newFighter.fort = Int32.Parse(fortBox.Text);
-                newFighter.reflex = Int32.Parse(refBox.Text);
-                newFighter.will = Int32.Parse(willBox.Text);
+                newFighter.Fort.total = Int32.Parse(fortBox.Text);
+                newFighter.Reflex.total = Int32.Parse(refBox.Text);
+                newFighter.Will.total = Int32.Parse(willBox.Text);
                 newFighter.SpellResist = Int32.Parse(srBox.Text);
                 newFighter.DamageReduce = Int32.Parse(drBox.Text);
 
