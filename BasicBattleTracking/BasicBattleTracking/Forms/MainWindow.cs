@@ -15,22 +15,22 @@ namespace BasicBattleTracking
     [Serializable()]
     public partial class MainWindow : Form
     {
-        public List<Fighter> combatants{ get; private set; }
-        public List<string> fighterOrder{ get; private set; }
-        public List<Status> statusEffects{ get; private set; }
-        public int combatRound{ get; private set; }
+        public List<Fighter> combatants { get; private set; }
+        public List<string> fighterOrder { get; private set; }
+        public List<Status> statusEffects { get; private set; }
+        public int combatRound { get; private set; }
         public int activeIndex { get; private set; }
         public int selectedFighter { get; private set; }
-        public int selectedStatus  { get; private set; }
+        public int selectedStatus { get; private set; }
         public bool holdFlag { get; private set; }
         public int savedIndex { get; private set; }
-        public List<int> statuses{ get; private set; }
+        public List<int> statuses { get; private set; }
         public bool multiStatus { get; private set; }
-        public Fighter selectedFighterObject{ get; private set; }
-        public Fighter editFighter{ get; private set; }
+        public Fighter selectedFighterObject { get; private set; }
+        public Fighter editFighter { get; private set; }
         public int selectedAttack { get; private set; }
-        public SessionController session{ get; private set; }
-        
+        public SessionController session { get; private set; }
+
 
         public bool cancelInit { get; set; }
 
@@ -40,6 +40,8 @@ namespace BasicBattleTracking
         private bool SkipCheckboxUpdate { get; set; }
 
         public Fighter CharSheetFighter { get; set; }
+
+        private bool loading = true;
 
         private Encounter encounter;
         public MainWindow()
@@ -58,28 +60,23 @@ namespace BasicBattleTracking
             skillsTab1.ParentWindow = this;
             notesTab1.sendSettings(session.settings);
             this.FormClosing += new FormClosingEventHandler(this.Form1_Closing);
-            encounter = new Encounter(combatants);
+
 
             //DB Load
             string[] spellLines = SpellDB.GetDBLines();
             WriteToLog("Spell database size: " + spellLines.Length);
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void initOrder_selectedIndexChanged(object sender, EventArgs e)
         {
-            if (InitOrderView.SelectedIndices.Count > 0)
+            if (InitOrderView.SelectedIndices.Count > 0 && InitOrderView.SelectedIndices[0] >= 0)
             {
-                selectedFighter = InitOrderView.SelectedIndices[0];
-                if(selectedFighter < fighterOrder.Count)
-                {
-                    unholdButton.Text = "Unhold " + fighterOrder.ElementAt(selectedFighter);
-                    updateFighterInfo(selectedFighter);
-                    UpdateFighterList();
-                }
+                encounter.ChangeDisplayFighter(InitOrderView.SelectedIndices[0]);
+                displayFighterSource.DataSource = encounter.displayFighter;
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             this.Visible = false;
             combatants = new List<Fighter>();
@@ -99,14 +96,15 @@ namespace BasicBattleTracking
             WriteToLog("Now with a hotfix directly off the skillet");
             session.SetDirty(false);
             this.Visible = true;
+            encounter = new Encounter(combatants);
+            displayFighterSource.DataSource = encounter.displayFighter;
             Program.EndSplashScreen();
-
-
+            loading = false;
         }
 
 
 
-        
+
 
         private void addFighterButton_Click(object sender, EventArgs e)
         {
@@ -115,11 +113,13 @@ namespace BasicBattleTracking
 
         private void AddPCFunction()
         {
-            AddFighterWindow add = new AddFighterWindow(this);
-            add.ShowDialog();
-            
-            enableGlobalButtons();
-            AutoSave();
+            encounter.UpdateFighterList += Encounter_UpdateFighterList;
+            encounter.BeginAddPC();
+        }
+
+        private void Encounter_UpdateFighterList(object sender, EventArgs e)
+        {
+            UpdateFighterList();
         }
 
         private void removeFighterButton_Click(object sender, EventArgs e)
@@ -176,50 +176,16 @@ namespace BasicBattleTracking
         private void UpdateFighterList()
         {
             InitOrderView.Items.Clear();
-            List<Fighter> orderedFighterList = combatants.OrderByDescending(c => c.Initiative).ThenByDescending(c => c.Dex).ToList();
-            int index = 1;
-            fighterOrder.Clear();
-            statusView.Items.Clear();
-            statusEffects.Clear();
-            foreach (Fighter f in orderedFighterList)
+            int order = 1;
+            foreach (Fighter f in encounter.activeFighters)
             {
-                f.UpdateStatusTargets();
-                fighterOrder.Add(f.Name);
-                string held = "";
-                if (f.HoldAction)
-                    held = "Yes";
-                else
-                    held = "No";
-                InitOrderView.Items.Add(new ListViewItem(new string[] { index.ToString(), f.Name, f.Initiative.ToString(), f.HP.ToString(), held }));
-                index++;
-
-                if (f.StatusEffects.Count > 0)
-                {
-                    foreach (Status s in f.StatusEffects)
-                    {
-
-                        statusView.Items.Add(new ListViewItem(new string[] { s.Name, f.Name, s.Turns.ToString(), s.Description }));
-                        statusEffects.Add(s);
-                    }
-                }
+                ListViewItem newItem = new ListViewItem(order.ToString());
+                newItem.SubItems.Add(f.Name);
+                newItem.SubItems.Add(f.Initiative.ToString());
+                newItem.SubItems.Add(f.HP.ToString());
+                InitOrderView.Items.Add(newItem);
+                order++;
             }
-            //Add Items to removed and edit Fighter Menus
-            List<Fighter> alphabetizedFighterList = combatants.OrderBy(c => c.Name).ToList();
-            removeCharacterToolStripMenuItem.DropDownItems.Clear();
-            editCharacterToolStripMenuItem.DropDownItems.Clear();
-            foreach (Fighter f in alphabetizedFighterList)
-            {
-                removeCharacterToolStripMenuItem.DropDownItems.Add(f.Name);
-                editCharacterToolStripMenuItem.DropDownItems.Add(f.Name);
-            }
-            if (statusView.Items.Count <= 0)
-            {
-                setRemoveStatusButton(false);
-                RemoveStatusButton.Text = "Remove Status";
-            }
-            combatants = orderedFighterList;
-            SelectActiveFighterInWindow();
-            
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -229,37 +195,15 @@ namespace BasicBattleTracking
 
         }
 
-        private void SelectActiveFighterInWindow()
-        {
-            //if (selectedFighter < InitOrderView.Items.Count)
-            //{
-            //    if (InitOrderView.Items[activeIndex] != null)
-            //    {
-            //        ListViewItem swapCandidate = InitOrderView.Items[activeIndex];
-            //        //swapCandidate.Selected = true;
-            //    }
-            //}
-        }
-
         private async Task RollInitiative()
         {
             await encounter.BeginRollInitiative();
         }
 
-        public void AddMultipleFighters(List<Fighter> fList)
-        {
-            foreach (Fighter f in fList)
-            {
-                combatants.Add(f);
-            }
-
-            UpdateFighterList();
-        }
-
         private void AttackButton_Click(object sender, EventArgs e)
         {
             PCAttack();
-            
+
         }
 
         private void PCAttack()
@@ -285,11 +229,6 @@ namespace BasicBattleTracking
         //NEXT button
         private void nextButton_Click(object sender, EventArgs e)
         {
-            
-        }
-
-        private void LogBox_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -305,7 +244,7 @@ namespace BasicBattleTracking
         {
             PreviousFigher();
             AutoSave();
-            
+
         }
 
         private void PreviousFigher()
@@ -349,7 +288,7 @@ namespace BasicBattleTracking
             nextTurnToolStripMenuItem.Enabled = true;
             previousTurnToolStripMenuItem.Enabled = true;
             setToTurn1ToolStripMenuItem.Enabled = true;
-            
+
         }
 
         public void disableTurnButtons()
@@ -379,7 +318,7 @@ namespace BasicBattleTracking
 
         private void AutoSave()
         {
-                       
+
             BattleIO auto = new BattleIO();
 
 
@@ -390,19 +329,19 @@ namespace BasicBattleTracking
             {
                 foreach (Attack atk in f.attacks)
                 {
-                    if(checkboxSettings[0])
+                    if (checkboxSettings[0])
                     {
                         atk.ResetAtkStrBonus();
                     }
-                    if(checkboxSettings[1])
+                    if (checkboxSettings[1])
                     {
                         atk.ResetAtkDexBonus();
                     }
-                    if(checkboxSettings[2])
+                    if (checkboxSettings[2])
                     {
                         atk.ResetDmgStrBonus();
                     }
-                    if(checkboxSettings[3])
+                    if (checkboxSettings[3])
                     {
                         atk.ResetDmgDexBonus();
                     }
@@ -444,7 +383,7 @@ namespace BasicBattleTracking
             BattleIO auto = new BattleIO();
             combatants = auto.AutoLoad(this);
 
-            
+
 
             //
             //DPercent Load
@@ -460,53 +399,11 @@ namespace BasicBattleTracking
                     }
                 }
             }
-            
+
             //
             //End DPercent Load
             //
 
-            if (combatants.Count > 0)
-            {
-                UpdateFighterList();
-                enableGlobalButtons();
-                enableTurnButtons();
-            }
-
-            foreach (Fighter f in combatants)
-            {
-                foreach (Attack atk in f.attacks)
-                {
-                    if (AtkStrBonusBox.Checked)
-                    {
-                        atk.UpdateStrBonusToAttack(Program.getAbilityMod(f.Str));
-                    }
-                    if (AtkDexBonusBox.Checked)
-                    {
-                        atk.UpdateDexBonusToAttack(Program.getAbilityMod(f.Dex));
-                    }
-                    if (DmgStrBonusBox.Checked)
-                    {
-                        atk.UpdateStrBonusToDamage(Program.getAbilityMod(f.Str));
-                    }
-                    if (DmgDexBonusBox.Checked)
-                    {
-                        atk.UpdateDexBonusToDamage(Program.getAbilityMod(f.Dex));
-                    }
-                }
-            }
-
-            ////debug stuff
-            //string spellPath = @"C:\Users\Alex\Desktop\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\BasicBattleTracking\Database\spell_full.csv";
-            //SpellDB.dbPath = spellPath;
-            //string[] spellLines = SpellDB.GetDBLines();
-            //WriteToLog("Spell DB lines count: " + spellLines.Length);
-            //WriteToLog("Lines:");
-            //for (int i = 0; i < spellLines.Length; i++)
-            //{
-            //    WriteToLog(spellLines[i]);
-            //    WriteToLog("");
-            //    WriteToLog("");
-            //}
             session.SetDirty(false);
         }
 
@@ -564,7 +461,7 @@ namespace BasicBattleTracking
                 WriteToLog(combatants.ElementAt(activeIndex).Name + " springs into action!");
                 combatants.ElementAt(selectedFighter).HoldAction = false;
                 UpdateFighterList();
-                
+
             }
             else
             {
@@ -584,7 +481,7 @@ namespace BasicBattleTracking
                 selectedStatus = statusView.SelectedIndices[0];
                 multiStatus = false;
                 statuses.Clear();
-                if(selectedStatus < statusEffects.Count)
+                if (selectedStatus < statusEffects.Count)
                 {
                     RemoveStatusButton.Text = "Remove " + statusEffects.ElementAt(selectedStatus).Name;
                 }
@@ -605,7 +502,7 @@ namespace BasicBattleTracking
 
         private void RemoveStatusButton_Click(object sender, EventArgs e)
         {
-            if(statusView.Items.Count > 0)
+            if (statusView.Items.Count > 0)
             {
                 if (multiStatus == false)
                 {
@@ -622,21 +519,21 @@ namespace BasicBattleTracking
                 }
                 else
                 {
-                    for (int i = statusEffects.Count; i >=0; i--)
+                    for (int i = statusEffects.Count; i >= 0; i--)
                     {
-                        if(statuses.Contains(i))
+                        if (statuses.Contains(i))
                         {
-                        Status removed = statusEffects.ElementAt(i);
-                        Fighter victim = removed.GetTarget();
-                        victim.StatusEffects.Remove(removed);
-                        UpdateFighterList();
+                            Status removed = statusEffects.ElementAt(i);
+                            Fighter victim = removed.GetTarget();
+                            victim.StatusEffects.Remove(removed);
+                            UpdateFighterList();
 
-                        if (statusView.Items.Count <= 0)
-                        {
-                            setRemoveStatusButton(false);
-                            RemoveStatusButton.Text = "Remove Status";
+                            if (statusView.Items.Count <= 0)
+                            {
+                                setRemoveStatusButton(false);
+                                RemoveStatusButton.Text = "Remove Status";
+                            }
                         }
-                     }
                     }
                     multiStatus = false;
                 }
@@ -650,13 +547,13 @@ namespace BasicBattleTracking
             statusEffects.Add(status);
 
             bool unique = true;
-            foreach(Status s in recentlyUsedStatuses)
+            foreach (Status s in recentlyUsedStatuses)
             {
                 if (s.Name == status.Name)
                     unique = false;
             }
 
-            if(unique)
+            if (unique)
             {
                 recentlyUsedStatuses.Add(status);
                 if (recentlyUsedStatuses.Count > 100)
@@ -798,7 +695,7 @@ namespace BasicBattleTracking
             for (int i = 0; i < atk.dieAmt; i++)
             {
                 sb.Append(atk.damageRollResults.ElementAt(i).ToString());
-                if(i != atk.dieAmt - 1)
+                if (i != atk.dieAmt - 1)
                 {
                     sb.Append(", ");
                 }
@@ -845,7 +742,7 @@ namespace BasicBattleTracking
                     WriteToRollConsole("Critical hit not confirmed!");
                     WriteToLog("It was not confirmed!");
                 }
-                
+
             }
 
             DamageLabel.Text = dieTotal.ToString();
@@ -866,9 +763,9 @@ namespace BasicBattleTracking
             if (atk.AtkRollResult >= atk.CritMin)
             {
                 crit = true;
-                
+
             }
-            
+
             rollResultLabel.Text = result.ToString();
             d20Label.Text = atk.AtkRollResult.ToString();
             WriteToLog(combatants.ElementAt(selectedFighter).Name + " made an attack using " + combatants.ElementAt(selectedFighter).attacks.ElementAt(atkIndex).name + " with a roll of " + result.ToString() + "!");
@@ -883,7 +780,7 @@ namespace BasicBattleTracking
                 Fighter update = combatants.ElementAt(fighterIndex);
                 selectedFighterObject = update;
                 fighterInfoBox.Text = selectedFighterObject.Name + " Stats";
-                
+
                 UpdateSkills();
                 if (!update.isPC)
                 {
@@ -939,7 +836,7 @@ namespace BasicBattleTracking
                     DmgDexBonusBox.Checked = false;
                     DmgStrBonusBox.Checked = false;
                 }
-                else if(!SkipCheckboxUpdate)
+                else if (!SkipCheckboxUpdate)
                 {
                     foreach (Attack atk in update.attacks)
                     {
@@ -1022,211 +919,6 @@ namespace BasicBattleTracking
             }
         }
 
-
-        //
-        //Stat Update Functions
-        //
-        private void hpLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newHP = 0;
-                try
-                {
-                    newHP = Int32.Parse(hpLabel.Text);
-                    combatants.ElementAt(selectedFighter).HP = newHP;
-                }
-                catch { }
-
-                UpdateFighterList();
-            }
-        }
-
-        private void acLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(acLabel.Text);
-                    combatants.ElementAt(selectedFighter).AC = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void flatFootedLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                if (!combatants.ElementAt(selectedFighter).isPC)
-                {
-                    int newVal = 0;
-                    try
-                    {
-                        newVal = Int32.Parse(flatFootedLabel.Text);
-                        combatants.ElementAt(selectedFighter).FlatFootedAC = newVal;
-                    }
-                    catch { }
-                }
-            }
-        }
-
-        private void touchLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(touchLabel.Text);
-                    combatants.ElementAt(selectedFighter).TouchAC = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void cmbLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (!combatants.ElementAt(selectedFighter).isPC)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(cmbLabel.Text);
-                    combatants.ElementAt(selectedFighter).CMB = newVal;
-                }
-                catch { }
-            }
-        }
-
-        private void cmdLabel_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(cmdLabel.Text);
-                    combatants.ElementAt(selectedFighter).CMD = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void initBox_TextChanged(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(initBox.Text);
-                    combatants.ElementAt(selectedFighter).InitBonus = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void fortBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(fortBox.Text);
-                    combatants.ElementAt(selectedFighter).Fort.total = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void refBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(refBox.Text);
-                    combatants.ElementAt(selectedFighter).Reflex.total = newVal;
-                }
-                catch { }
-
-            }
-        }
-
-        private void willBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(willBox.Text);
-                    combatants.ElementAt(selectedFighter).Will.total = newVal;
-                }
-                catch { }
-
-            }
-        }
-        private void hpLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void acLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flatFootedLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void touchLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmdLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fortBox_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void refBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void willBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void displayMod(TextBox inputBox, TextBox outputBox)
         {
             int score = 0;
@@ -1253,212 +945,11 @@ namespace BasicBattleTracking
             }
         }
 
-        private void strBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(strBox.Text);
-                    combatants.ElementAt(selectedFighter).Str = newVal;
-
-                    WriteAbilityChangeToSkills(newVal, "Str");
-                    if (AtkStrBonusBox.Checked)
-                    {
-                        foreach (Attack atk in selectedFighterObject.attacks)
-                        {
-                            atk.UpdateStrBonusToAttack(Program.getAbilityMod(newVal));
-                        }
-                    }
-                    if (DmgStrBonusBox.Checked)
-                    {
-                        foreach (Attack atk in selectedFighterObject.attacks)
-                        {
-                            atk.UpdateStrBonusToDamage(Program.getAbilityMod(newVal));
-                        }
-                    }
-                }
-                catch { }
-            }
-            displayMod(strBox, strModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void dexBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(dexBox.Text);
-                    combatants.ElementAt(selectedFighter).Dex = newVal;
-                    WriteAbilityChangeToSkills(newVal, "Dex");
-
-                    if (AtkDexBonusBox.Checked)
-                    {
-                        foreach (Attack atk in selectedFighterObject.attacks)
-                        {
-                            atk.UpdateDexBonusToAttack(Program.getAbilityMod(newVal));
-                        }
-                    }
-                    if (DmgDexBonusBox.Checked)
-                    {
-                        foreach (Attack atk in selectedFighterObject.attacks)
-                        {
-                            atk.UpdateDexBonusToDamage(Program.getAbilityMod(newVal));
-                        }
-                    }
-                }
-                catch { }
-
-            }
-            displayMod(dexBox, dexModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void conBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(conBox.Text);
-                    combatants.ElementAt(selectedFighter).Con = newVal;
-                    WriteAbilityChangeToSkills(newVal, "Con");
-                }
-                catch { }
-
-            }
-            displayMod(conBox, conModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void intBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(intBox.Text);
-                    combatants.ElementAt(selectedFighter).Int = newVal;
-                    WriteAbilityChangeToSkills(newVal, "Int");
-                }
-                catch { }
-
-            }
-            displayMod(intBox, intModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void wisBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (combatants.Count > 0)
-            {
-
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(wisBox.Text);
-                    combatants.ElementAt(selectedFighter).Wis = newVal;
-                    WriteAbilityChangeToSkills(newVal, "Wis");
-                }
-                catch { }
-
-            }
-            displayMod(wisBox, wisModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void chaBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (!combatants.ElementAt(selectedFighter).isPC)
-            {
-                int newVal = 0;
-                try
-                {
-                    newVal = Int32.Parse(chaBox.Text);
-                    combatants.ElementAt(selectedFighter).Cha = newVal;
-                    WriteAbilityChangeToSkills(newVal, "Cha");
-                }
-                catch { }
-
-            }
-            displayMod(chaBox, chaModBox);
-            UpdateAtkValues(selectedFighter);
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-            selectedFighterObject.Name = npcNameBox.Text;
-            editFighter = selectedFighterObject;
-            UpdateFighter(selectedFighterObject);
-        }
-
-        private void npcSPBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int newVal = Int32.Parse(npcSPBox.Text);
-                selectedFighterObject.SpellPoints = newVal;
-                updateFighterInfo(selectedFighter);
-            }
-            catch { }
-           
-        }
-
-        private void npcNegLevelsBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int negativeLvls = Int32.Parse(npcNegLevelsBox.Text);
-                selectedFighterObject.ApplyNegativeLevels(negativeLvls);
-                updateFighterInfo(selectedFighter);
-            }
-            catch
-            {
-
-            }
-            
-        }
-        private void bioBox_TextChanged(object sender, EventArgs e)
-        {
-            selectedFighterObject.Notes = bioBox.Text;
-        }
-
-        private void drBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                selectedFighterObject.DamageReduce = Int32.Parse(drBox.Text);
-            }
-            catch { }
-        }
-        //Attack Mod Box
-        private void textBox1_TextChanged_2(object sender, EventArgs e)
-        {
-            int newMod = 0;
-            try
-            {
-                newMod = Int32.Parse(attackModBox.Text);
-                selectedFighterObject.ApplyGlobalAttackMod(newMod);
-                UpdateAtkValues(selectedFighter);
-            }
-            catch { }
-
-        }
-
         private void WriteAbilityChangeToSkills(int newAbilityScore, string abilityName)
         {
-            foreach(Skill s in selectedFighterObject.skills)
+            foreach (Skill s in selectedFighterObject.skills)
             {
-                if(s.abilitySource == abilityName)
+                if (s.abilitySource == abilityName)
                 {
                     s.abilityMod = Program.getAbilityMod(newAbilityScore);
                 }
@@ -1482,15 +973,15 @@ namespace BasicBattleTracking
             WriteToRollConsole("Result:\t" + dr.RawDieTotal.ToString());
             StringBuilder sb = new StringBuilder();
             sb.Append("{");
-            for(int i = 0; i < dr.DiceRolls.Count; i++)
+            for (int i = 0; i < dr.DiceRolls.Count; i++)
             {
                 sb.Append(dr.DiceRolls.ElementAt(i).ToString());
-                if(i != dr.DiceRolls.Count - 1)
+                if (i != dr.DiceRolls.Count - 1)
                 {
                     sb.Append(", ");
                 }
             }
-            
+
             sb.Append("}");
             WriteToRollConsole(sb.ToString());
             WriteToRollConsole("");
@@ -1678,7 +1169,7 @@ namespace BasicBattleTracking
                 mod = Int32.Parse(dxModBox.Text);
                 type = Int32.Parse(dxTypeBox.Text);
             }
-            catch 
+            catch
             {
                 dxCountBox.Text = "1";
                 dxModBox.Text = "0";
@@ -1706,7 +1197,7 @@ namespace BasicBattleTracking
         //
         private void AtkStrBonusBox_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             if (selectedFighterObject.attacks.Count > 0)
             {
                 Attack changeAtk = selectedFighterObject.attacks.ElementAt(selectedAttack);
@@ -1812,7 +1303,7 @@ namespace BasicBattleTracking
         private void button1_Click_2(object sender, EventArgs e)
         {
             EditSelectedFighter(selectedFighterObject);
-            
+
         }
 
         private void EditSelectedFighter(Fighter selected)
@@ -1836,23 +1327,23 @@ namespace BasicBattleTracking
         //
         public void UpdateFighter(Fighter update)
         {
-                int index = combatants.IndexOf(editFighter);
-                if (index >= 0)
-                {
-                    combatants.RemoveAt(index);
-                    combatants.Insert(index, update);
-                }
-                else
-                {
-                    combatants.Add(update);
-                    index = combatants.Count - 1;
-                }
-                    updateFighterInfo(index);
-                
-                selectedFighterObject = update;
-                selectedFighter = combatants.IndexOf(update);
-                UpdateFighterList();
-            
+            int index = combatants.IndexOf(editFighter);
+            if (index >= 0)
+            {
+                combatants.RemoveAt(index);
+                combatants.Insert(index, update);
+            }
+            else
+            {
+                combatants.Add(update);
+                index = combatants.Count - 1;
+            }
+            updateFighterInfo(index);
+
+            selectedFighterObject = update;
+            selectedFighter = combatants.IndexOf(update);
+            UpdateFighterList();
+
         }
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -1880,7 +1371,7 @@ namespace BasicBattleTracking
 
         private void dPercentTableControls_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void tabPage9_Click(object sender, EventArgs e)
@@ -1968,22 +1459,22 @@ namespace BasicBattleTracking
         public List<object> CompileAndGetFields()
         {
             Fields = new List<object>();
-            Fields.Add((object)combatants );
-            Fields.Add((object) fighterOrder);
-            Fields.Add((object) statusEffects);
-            Fields.Add((object) combatRound);
-            Fields.Add((object) activeIndex);
-            Fields.Add((object) selectedFighter);
-            Fields.Add((object) selectedStatus);
-            Fields.Add((object) holdFlag);
-            Fields.Add((object)savedIndex );
-            Fields.Add((object)statuses );
-            Fields.Add((object)multiStatus );
-            Fields.Add((object) selectedFighterObject);
-            Fields.Add((object)editFighter );
-            Fields.Add((object) selectedAttack);
-            Fields.Add((object) session);
-            Fields.Add((object) cancelInit);
+            Fields.Add((object)combatants);
+            Fields.Add((object)fighterOrder);
+            Fields.Add((object)statusEffects);
+            Fields.Add((object)combatRound);
+            Fields.Add((object)activeIndex);
+            Fields.Add((object)selectedFighter);
+            Fields.Add((object)selectedStatus);
+            Fields.Add((object)holdFlag);
+            Fields.Add((object)savedIndex);
+            Fields.Add((object)statuses);
+            Fields.Add((object)multiStatus);
+            Fields.Add((object)selectedFighterObject);
+            Fields.Add((object)editFighter);
+            Fields.Add((object)selectedAttack);
+            Fields.Add((object)session);
+            Fields.Add((object)cancelInit);
             Fields.Add((object)recentlyUsedStatuses);
             return Fields;
         }
@@ -1991,47 +1482,48 @@ namespace BasicBattleTracking
         //SERIOUSLY
         public void ExtractFields(SessionDetail sendingForm)
         {
-                combatants = (List<Fighter>  ) sendingForm.combatants;
-                fighterOrder = (List<string>)sendingForm.fighterOrder;
-                statusEffects = (List<Status>)sendingForm.statusEffects;
-                combatRound = (int)sendingForm.combatRound;
-                activeIndex = (int)sendingForm.activeIndex;
-                selectedFighter = (int)sendingForm.selectedFighter;
-                selectedStatus = (int)sendingForm.selectedStatus;
-                holdFlag = (bool)sendingForm.holdFlag;
-                savedIndex = (int)sendingForm.savedIndex;
-                statuses = (List<int>)sendingForm.statuses;
-                multiStatus = (bool)sendingForm.multiStatus;
-                selectedFighterObject = (Fighter)sendingForm.selectedFighterObject;
-                editFighter = (Fighter)sendingForm.editFighter;
-                selectedAttack = (int)sendingForm.selectedAttack;
-                session = (SessionController)sendingForm.session;
-                
+            combatants = (List<Fighter>)sendingForm.combatants;
+            fighterOrder = (List<string>)sendingForm.fighterOrder;
+            statusEffects = (List<Status>)sendingForm.statusEffects;
+            combatRound = (int)sendingForm.combatRound;
+            activeIndex = (int)sendingForm.activeIndex;
+            selectedFighter = (int)sendingForm.selectedFighter;
+            selectedStatus = (int)sendingForm.selectedStatus;
+            holdFlag = (bool)sendingForm.holdFlag;
+            savedIndex = (int)sendingForm.savedIndex;
+            statuses = (List<int>)sendingForm.statuses;
+            multiStatus = (bool)sendingForm.multiStatus;
+            selectedFighterObject = (Fighter)sendingForm.selectedFighterObject;
+            editFighter = (Fighter)sendingForm.editFighter;
+            selectedAttack = (int)sendingForm.selectedAttack;
+            session = (SessionController)sendingForm.session;
 
-                cancelInit = (bool)sendingForm.cancelInit;
 
-          recentlyUsedStatuses = (List<Status>)sendingForm.recentlyUsedStatuses;
-          this.Text = Program.ProgramName + " - " + Program.activeSessionName;
-          turnLabel.Text = combatRound.ToString();
-          if (activeIndex < combatants.Count && activeIndex >= 0)
-          {
-              activeLabel.Text = combatants.ElementAt(activeIndex).Name;
-              updateFighterInfo(activeIndex);
-              unholdButton.Text = "Unhold " + selectedFighterObject.Name;
-          }
-              UpdateFighterList();
+            cancelInit = (bool)sendingForm.cancelInit;
 
-              if (session != null)
-              {
-                  session.SetDirty(false);
-              }
-              else
-              {
-                  session = new SessionController(this);
-              }
-               
+            recentlyUsedStatuses = (List<Status>)sendingForm.recentlyUsedStatuses;
+            this.Text = Program.ProgramName + " - " + Program.activeSessionName;
+            turnLabel.Text = combatRound.ToString();
+            if (activeIndex < combatants.Count && activeIndex >= 0)
+            {
+                activeLabel.Text = combatants.ElementAt(activeIndex).Name;
+                updateFighterInfo(activeIndex);
+                unholdButton.Text = "Unhold " + selectedFighterObject.Name;
+            }
+            encounter = new Encounter(combatants);
+            UpdateFighterList();
 
-                     }
+            if (session != null)
+            {
+                session.SetDirty(false);
+            }
+            else
+            {
+                session = new SessionController(this);
+            }
+
+
+        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2077,7 +1569,7 @@ namespace BasicBattleTracking
 
         private void removeCharacterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void addNPCToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2196,7 +1688,7 @@ namespace BasicBattleTracking
 
         private void GenerateCharSheet()
         {
-            if(selectedFighterObject != null)
+            if (selectedFighterObject != null)
             {
                 CharacterSheet sheet = new CharacterSheet();
                 editFighter = this.selectedFighterObject;
@@ -2207,10 +1699,13 @@ namespace BasicBattleTracking
             }
         }
 
-
-
-
-       
+        private void HandleUpdatableChange(object sender, EventArgs e)
+        {
+            if (!loading)
+            {
+                UpdateFighterList();
+            }
+        }
     }
 
 

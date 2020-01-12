@@ -13,11 +13,10 @@ namespace BasicBattleTracking
 {
     public partial class AddFighterWindow : Form
     {
-        private MainWindow sendingForm;
-        public AddFighterWindow(MainWindow sender)
+        public Fighter NewPC { get; private set; }
+        public AddFighterWindow()
         {
             InitializeComponent();
-            sendingForm = sender;
             string ttCaption = "Enter the full Dexterity score, not the modifier. This will be used to resolve initiative ties.";
             toolTip1.SetToolTip(label4, ttCaption);
         }
@@ -87,15 +86,24 @@ namespace BasicBattleTracking
                 {
                     combatant.HP = hp;
                 }
-                sendingForm.AddFighter(combatant);
+                NewPC = combatant;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-
-
-
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void cButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void AddFighterWindow_Load(object sender, EventArgs e)
         {
 
         }

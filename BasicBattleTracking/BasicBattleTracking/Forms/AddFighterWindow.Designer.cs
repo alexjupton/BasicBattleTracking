@@ -135,6 +135,7 @@
             this.cButton.TabIndex = 8;
             this.cButton.Text = "Cancel";
             this.cButton.UseVisualStyleBackColor = true;
+            this.cButton.Click += new System.EventHandler(this.cButton_Click);
             // 
             // label4
             // 
@@ -181,6 +182,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddFighterWindow";
             this.Text = "Add Player Character";
+            this.Load += new System.EventHandler(this.AddFighterWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

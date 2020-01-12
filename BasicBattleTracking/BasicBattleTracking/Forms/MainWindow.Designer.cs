@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.InitOrderView = new System.Windows.Forms.ListView();
             this.OrderColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -170,6 +171,7 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.npcSRBox = new System.Windows.Forms.TextBox();
+            this.displayFighterSource = new System.Windows.Forms.BindingSource(this.components);
             this.label53 = new System.Windows.Forms.Label();
             this.npcSPBox = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
@@ -287,6 +289,7 @@
             this.fighterInfoBox.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage9.SuspendLayout();
@@ -323,7 +326,7 @@
             this.InitOrderView.TabIndex = 0;
             this.InitOrderView.UseCompatibleStateImageBehavior = false;
             this.InitOrderView.View = System.Windows.Forms.View.Details;
-            this.InitOrderView.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.InitOrderView.SelectedIndexChanged += new System.EventHandler(this.initOrder_selectedIndexChanged);
             // 
             // OrderColumn
             // 
@@ -535,7 +538,6 @@
             this.LogBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LogBox.Size = new System.Drawing.Size(1370, 274);
             this.LogBox.TabIndex = 0;
-            this.LogBox.TextChanged += new System.EventHandler(this.LogBox_TextChanged);
             // 
             // label1
             // 
@@ -591,6 +593,7 @@
             this.columnHeader3,
             this.columnHeader4});
             this.statusView.FullRowSelect = true;
+            this.statusView.HideSelection = false;
             this.statusView.Location = new System.Drawing.Point(5, 5);
             this.statusView.Margin = new System.Windows.Forms.Padding(2);
             this.statusView.Name = "statusView";
@@ -1821,10 +1824,15 @@
             // 
             // npcSRBox
             // 
+            this.npcSRBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "SpellResist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.npcSRBox.Location = new System.Drawing.Point(193, 85);
             this.npcSRBox.Name = "npcSRBox";
             this.npcSRBox.Size = new System.Drawing.Size(45, 20);
             this.npcSRBox.TabIndex = 22;
+            // 
+            // displayFighterSource
+            // 
+            this.displayFighterSource.DataSource = typeof(BasicBattleTracking.FighterDetail.Fighter);
             // 
             // label53
             // 
@@ -1838,11 +1846,11 @@
             // 
             // npcSPBox
             // 
+            this.npcSPBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "SpellPoints", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.npcSPBox.Location = new System.Drawing.Point(193, 62);
             this.npcSPBox.Name = "npcSPBox";
             this.npcSPBox.Size = new System.Drawing.Size(45, 20);
             this.npcSPBox.TabIndex = 20;
-            this.npcSPBox.TextChanged += new System.EventHandler(this.npcSPBox_TextChanged);
             // 
             // label52
             // 
@@ -1856,11 +1864,12 @@
             // 
             // npcNameBox
             // 
+            this.npcNameBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Name", true));
             this.npcNameBox.Location = new System.Drawing.Point(48, 10);
             this.npcNameBox.Name = "npcNameBox";
             this.npcNameBox.Size = new System.Drawing.Size(221, 20);
             this.npcNameBox.TabIndex = 18;
-            this.npcNameBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.npcNameBox.TextChanged += new System.EventHandler(this.HandleUpdatableChange);
             // 
             // label51
             // 
@@ -1874,11 +1883,12 @@
             // 
             // hpLabel
             // 
+            this.hpLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "HP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.hpLabel.Location = new System.Drawing.Point(308, 10);
             this.hpLabel.Name = "hpLabel";
             this.hpLabel.Size = new System.Drawing.Size(45, 20);
             this.hpLabel.TabIndex = 16;
-            this.hpLabel.TextChanged += new System.EventHandler(this.hpLabel_TextChanged_1);
+            this.hpLabel.TextChanged += new System.EventHandler(this.HandleUpdatableChange);
             // 
             // groupBox7
             // 
@@ -1897,19 +1907,19 @@
             // 
             // cmdLabel
             // 
+            this.cmdLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "CMD", true));
             this.cmdLabel.Location = new System.Drawing.Point(105, 18);
             this.cmdLabel.Name = "cmdLabel";
             this.cmdLabel.Size = new System.Drawing.Size(25, 20);
             this.cmdLabel.TabIndex = 11;
-            this.cmdLabel.TextChanged += new System.EventHandler(this.cmdLabel_TextChanged_1);
             // 
             // cmbLabel
             // 
+            this.cmbLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "CMB", true));
             this.cmbLabel.Location = new System.Drawing.Point(37, 18);
             this.cmbLabel.Name = "cmbLabel";
             this.cmbLabel.Size = new System.Drawing.Size(25, 20);
             this.cmbLabel.TabIndex = 10;
-            this.cmbLabel.TextChanged += new System.EventHandler(this.cmbLabel_TextChanged_1);
             // 
             // label19
             // 
@@ -1952,11 +1962,11 @@
             // 
             // drBox
             // 
+            this.drBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "DamageReduce", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.drBox.Location = new System.Drawing.Point(75, 78);
             this.drBox.Name = "drBox";
             this.drBox.Size = new System.Drawing.Size(25, 20);
             this.drBox.TabIndex = 11;
-            this.drBox.TextChanged += new System.EventHandler(this.drBox_TextChanged);
             // 
             // label57
             // 
@@ -1970,27 +1980,27 @@
             // 
             // touchLabel
             // 
+            this.touchLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "TouchAC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.touchLabel.Location = new System.Drawing.Point(75, 52);
             this.touchLabel.Name = "touchLabel";
             this.touchLabel.Size = new System.Drawing.Size(25, 20);
             this.touchLabel.TabIndex = 9;
-            this.touchLabel.TextChanged += new System.EventHandler(this.touchLabel_TextChanged_1);
             // 
             // flatFootedLabel
             // 
+            this.flatFootedLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "FlatFootedAC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.flatFootedLabel.Location = new System.Drawing.Point(75, 29);
             this.flatFootedLabel.Name = "flatFootedLabel";
             this.flatFootedLabel.Size = new System.Drawing.Size(25, 20);
             this.flatFootedLabel.TabIndex = 8;
-            this.flatFootedLabel.TextChanged += new System.EventHandler(this.flatFootedLabel_TextChanged_1);
             // 
             // acLabel
             // 
+            this.acLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "AC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.acLabel.Location = new System.Drawing.Point(75, 6);
             this.acLabel.Name = "acLabel";
             this.acLabel.Size = new System.Drawing.Size(25, 20);
             this.acLabel.TabIndex = 7;
-            this.acLabel.TextChanged += new System.EventHandler(this.acLabel_TextChanged_1);
             // 
             // label11
             // 
@@ -2064,11 +2074,11 @@
             // 
             // attackModBox
             // 
+            this.attackModBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "attackMod", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.attackModBox.Location = new System.Drawing.Point(197, 119);
             this.attackModBox.Name = "attackModBox";
             this.attackModBox.Size = new System.Drawing.Size(37, 20);
             this.attackModBox.TabIndex = 27;
-            this.attackModBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
             // 
             // label54
             // 
@@ -2082,11 +2092,11 @@
             // 
             // npcNegLevelsBox
             // 
+            this.npcNegLevelsBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "NegativeLevels", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.npcNegLevelsBox.Location = new System.Drawing.Point(197, 94);
             this.npcNegLevelsBox.Name = "npcNegLevelsBox";
             this.npcNegLevelsBox.Size = new System.Drawing.Size(37, 20);
             this.npcNegLevelsBox.TabIndex = 25;
-            this.npcNegLevelsBox.TextChanged += new System.EventHandler(this.npcNegLevelsBox_TextChanged);
             // 
             // InitLabel
             // 
@@ -2100,11 +2110,11 @@
             // 
             // initBox
             // 
+            this.initBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "InitBonus", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.initBox.Location = new System.Drawing.Point(77, 94);
             this.initBox.Name = "initBox";
             this.initBox.Size = new System.Drawing.Size(37, 20);
             this.initBox.TabIndex = 23;
-            this.initBox.TextChanged += new System.EventHandler(this.initBox_TextChanged);
             // 
             // groupBox8
             // 
@@ -2125,27 +2135,27 @@
             // 
             // willBox
             // 
+            this.willBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Will", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.willBox.Location = new System.Drawing.Point(75, 67);
             this.willBox.Name = "willBox";
             this.willBox.Size = new System.Drawing.Size(28, 20);
             this.willBox.TabIndex = 9;
-            this.willBox.TextChanged += new System.EventHandler(this.willBox_TextChanged_1);
             // 
             // refBox
             // 
+            this.refBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "reflex", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.refBox.Location = new System.Drawing.Point(75, 41);
             this.refBox.Name = "refBox";
             this.refBox.Size = new System.Drawing.Size(28, 20);
             this.refBox.TabIndex = 8;
-            this.refBox.TextChanged += new System.EventHandler(this.refBox_TextChanged_1);
             // 
             // fortBox
             // 
+            this.fortBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "fort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.fortBox.Location = new System.Drawing.Point(75, 15);
             this.fortBox.Name = "fortBox";
             this.fortBox.Size = new System.Drawing.Size(28, 20);
             this.fortBox.TabIndex = 7;
-            this.fortBox.TextChanged += new System.EventHandler(this.fortBox_TextChanged_1);
             // 
             // label4
             // 
@@ -2217,12 +2227,12 @@
             // 
             // strBox
             // 
+            this.strBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Str", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.strBox.Location = new System.Drawing.Point(44, 18);
             this.strBox.Margin = new System.Windows.Forms.Padding(2);
             this.strBox.Name = "strBox";
             this.strBox.Size = new System.Drawing.Size(35, 20);
             this.strBox.TabIndex = 77;
-            this.strBox.TextChanged += new System.EventHandler(this.strBox_TextChanged_1);
             // 
             // label47
             // 
@@ -2247,12 +2257,12 @@
             // 
             // intBox
             // 
+            this.intBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Int", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.intBox.Location = new System.Drawing.Point(155, 19);
             this.intBox.Margin = new System.Windows.Forms.Padding(2);
             this.intBox.Name = "intBox";
             this.intBox.Size = new System.Drawing.Size(35, 20);
             this.intBox.TabIndex = 66;
-            this.intBox.TextChanged += new System.EventHandler(this.intBox_TextChanged_1);
             // 
             // label46
             // 
@@ -2287,21 +2297,21 @@
             // 
             // wisBox
             // 
+            this.wisBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Wis", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.wisBox.Location = new System.Drawing.Point(155, 40);
             this.wisBox.Margin = new System.Windows.Forms.Padding(2);
             this.wisBox.Name = "wisBox";
             this.wisBox.Size = new System.Drawing.Size(35, 20);
             this.wisBox.TabIndex = 68;
-            this.wisBox.TextChanged += new System.EventHandler(this.wisBox_TextChanged_1);
             // 
             // conBox
             // 
+            this.conBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Con", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.conBox.Location = new System.Drawing.Point(44, 63);
             this.conBox.Margin = new System.Windows.Forms.Padding(2);
             this.conBox.Name = "conBox";
             this.conBox.Size = new System.Drawing.Size(35, 20);
             this.conBox.TabIndex = 79;
-            this.conBox.TextChanged += new System.EventHandler(this.conBox_TextChanged_1);
             // 
             // label41
             // 
@@ -2325,21 +2335,21 @@
             // 
             // dexBox
             // 
+            this.dexBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Dex", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dexBox.Location = new System.Drawing.Point(44, 39);
             this.dexBox.Margin = new System.Windows.Forms.Padding(2);
             this.dexBox.Name = "dexBox";
             this.dexBox.Size = new System.Drawing.Size(35, 20);
             this.dexBox.TabIndex = 78;
-            this.dexBox.TextChanged += new System.EventHandler(this.dexBox_TextChanged_1);
             // 
             // chaBox
             // 
+            this.chaBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Cha", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chaBox.Location = new System.Drawing.Point(155, 64);
             this.chaBox.Margin = new System.Windows.Forms.Padding(2);
             this.chaBox.Name = "chaBox";
             this.chaBox.Size = new System.Drawing.Size(35, 20);
             this.chaBox.TabIndex = 70;
-            this.chaBox.TextChanged += new System.EventHandler(this.chaBox_TextChanged_1);
             // 
             // label50
             // 
@@ -2397,12 +2407,12 @@
             // 
             // bioBox
             // 
+            this.bioBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.displayFighterSource, "Notes", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.bioBox.Location = new System.Drawing.Point(6, 6);
             this.bioBox.Name = "bioBox";
             this.bioBox.Size = new System.Drawing.Size(346, 205);
             this.bioBox.TabIndex = 0;
             this.bioBox.Text = "";
-            this.bioBox.TextChanged += new System.EventHandler(this.bioBox_TextChanged);
             // 
             // menuStrip1
             // 
@@ -2487,7 +2497,7 @@
             // 
             this.addPCToolStripMenuItem.Name = "addPCToolStripMenuItem";
             this.addPCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
-            this.addPCToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.addPCToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.addPCToolStripMenuItem.Text = "Add PC";
             this.addPCToolStripMenuItem.Click += new System.EventHandler(this.addPCToolStripMenuItem_Click);
             // 
@@ -2495,7 +2505,7 @@
             // 
             this.addNPCToolStripMenuItem.Name = "addNPCToolStripMenuItem";
             this.addNPCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.N)));
-            this.addNPCToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.addNPCToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.addNPCToolStripMenuItem.Text = "Add NPC";
             this.addNPCToolStripMenuItem.Click += new System.EventHandler(this.addNPCToolStripMenuItem_Click);
             // 
@@ -2504,7 +2514,7 @@
             this.editCharacterToolStripMenuItem.Enabled = false;
             this.editCharacterToolStripMenuItem.Name = "editCharacterToolStripMenuItem";
             this.editCharacterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
-            this.editCharacterToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.editCharacterToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.editCharacterToolStripMenuItem.Text = "Edit Character";
             // 
             // removeCharacterToolStripMenuItem
@@ -2513,14 +2523,14 @@
             this.alexToolStripMenuItem});
             this.removeCharacterToolStripMenuItem.Enabled = false;
             this.removeCharacterToolStripMenuItem.Name = "removeCharacterToolStripMenuItem";
-            this.removeCharacterToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.removeCharacterToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.removeCharacterToolStripMenuItem.Text = "Remove Character";
             this.removeCharacterToolStripMenuItem.Click += new System.EventHandler(this.removeCharacterToolStripMenuItem_Click);
             // 
             // alexToolStripMenuItem
             // 
             this.alexToolStripMenuItem.Name = "alexToolStripMenuItem";
-            this.alexToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.alexToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.alexToolStripMenuItem.Text = "Alex";
             this.alexToolStripMenuItem.Click += new System.EventHandler(this.alexToolStripMenuItem_Click);
             // 
@@ -2529,7 +2539,7 @@
             this.rollInitiativeToolStripMenuItem.Enabled = false;
             this.rollInitiativeToolStripMenuItem.Name = "rollInitiativeToolStripMenuItem";
             this.rollInitiativeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-            this.rollInitiativeToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.rollInitiativeToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.rollInitiativeToolStripMenuItem.Text = "Roll Initiative";
             this.rollInitiativeToolStripMenuItem.Click += new System.EventHandler(this.rollInitiativeToolStripMenuItem_Click);
             // 
@@ -2538,7 +2548,7 @@
             this.nextTurnToolStripMenuItem.Enabled = false;
             this.nextTurnToolStripMenuItem.Name = "nextTurnToolStripMenuItem";
             this.nextTurnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Right)));
-            this.nextTurnToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.nextTurnToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.nextTurnToolStripMenuItem.Text = "Next Turn";
             this.nextTurnToolStripMenuItem.Click += new System.EventHandler(this.nextTurnToolStripMenuItem_Click);
             // 
@@ -2547,7 +2557,7 @@
             this.previousTurnToolStripMenuItem.Enabled = false;
             this.previousTurnToolStripMenuItem.Name = "previousTurnToolStripMenuItem";
             this.previousTurnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Left)));
-            this.previousTurnToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.previousTurnToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.previousTurnToolStripMenuItem.Text = "Previous Turn";
             this.previousTurnToolStripMenuItem.Click += new System.EventHandler(this.previousTurnToolStripMenuItem_Click);
             // 
@@ -2556,7 +2566,7 @@
             this.setToTurn1ToolStripMenuItem.Enabled = false;
             this.setToTurn1ToolStripMenuItem.Name = "setToTurn1ToolStripMenuItem";
             this.setToTurn1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
-            this.setToTurn1ToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.setToTurn1ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.setToTurn1ToolStripMenuItem.Text = "Revert to Turn 1";
             this.setToTurn1ToolStripMenuItem.Click += new System.EventHandler(this.setToTurn1ToolStripMenuItem_Click);
             // 
@@ -2834,6 +2844,7 @@
             this.tabControl3.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -2864,7 +2875,6 @@
         }
 
         #endregion
-
         private System.Windows.Forms.ListView InitOrderView;
         private System.Windows.Forms.ColumnHeader OrderColumn;
         private System.Windows.Forms.ColumnHeader NameColumn;
@@ -3103,6 +3113,7 @@
         private System.Windows.Forms.ToolStripMenuItem willToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unholdActionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCharacterSheetToolStripMenuItem;
+        private System.Windows.Forms.BindingSource displayFighterSource;
     }
 }
 
