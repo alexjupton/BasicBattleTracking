@@ -20,10 +20,17 @@ namespace BasicBattleTracking
         public MainWindow()
         {
             InitializeComponent();
+            this.Visible = false;
+            this.WindowState = FormWindowState.Minimized;
         }
-        private void MainWindow_Load(object sender, EventArgs e)
+        private async void MainWindow_Load(object sender, EventArgs e)
         {
-
+            SplashScreen splashScreen = new SplashScreen();
+            splashScreen.Show();
+            await Task.Delay(5000);
+            splashScreen.Close();
+            this.Visible = true;
+            this.WindowState = FormWindowState.Maximized;
         }
 
         public async Task UpdateFighterList()
