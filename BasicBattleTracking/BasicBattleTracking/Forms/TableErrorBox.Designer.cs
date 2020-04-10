@@ -58,7 +58,6 @@
             this.recalcButton.TabIndex = 1;
             this.recalcButton.Text = "Recalculate Values";
             this.recalcButton.UseVisualStyleBackColor = true;
-            this.recalcButton.Click += new System.EventHandler(this.recalcButton_Click);
             // 
             // label2
             // 
@@ -79,7 +78,6 @@
             this.addBlankButton.TabIndex = 3;
             this.addBlankButton.Text = "Add Blank Results";
             this.addBlankButton.UseVisualStyleBackColor = true;
-            this.addBlankButton.Click += new System.EventHandler(this.addBlankButton_Click);
             // 
             // cancButton
             // 
@@ -90,7 +88,6 @@
             this.cancButton.TabIndex = 4;
             this.cancButton.Text = "Cancel";
             this.cancButton.UseVisualStyleBackColor = true;
-            this.cancButton.Click += new System.EventHandler(this.cancButton_Click);
             // 
             // gapsBox
             // 
@@ -129,7 +126,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "TableErrorBox";
             this.Text = "Error";
-            this.Load += new System.EventHandler(this.TableErrorBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

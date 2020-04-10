@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BasicBattleTracking</RootNamespace>
     <AssemblyName>BasicBattleTracking</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -33,6 +33,7 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,19 +55,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D8CBFBF4D76900D55B8CE5AD156328D7E1F0AE1C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C4EA10B488F7F0B0BB7CD90A7989A33D267AABB4</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>BasicBattleTracking_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>BasicBattleTracking_NewKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\d20.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>BasicBattleTracking_NewKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -81,15 +88,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dice\Die.cs" />
-    <Compile Include="FighterDetail\Save.cs" />
     <Compile Include="Forms\AddFighterWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddFighterWindow.Designer.cs">
       <DependentUpon>AddFighterWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="FighterDetail\Attack.cs" />
     <Compile Include="Forms\AttackDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,7 +106,6 @@
     <Compile Include="Forms\AttackForm.Designer.cs">
       <DependentUpon>AttackForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BattleIO.cs" />
     <Compile Include="Forms\CharacterSheet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,9 +138,7 @@
       <DependentUpon>DPercentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="DPercentTable.cs" />
-    <Compile Include="Encounter.cs" />
     <Compile Include="Event\EncounterEvent.cs" />
-    <Compile Include="FighterDetail\Feat.cs" />
     <Compile Include="Forms\UserControls\FeatsTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,7 +161,6 @@
     <Compile Include="SessionController.cs" />
     <Compile Include="SessionDetail.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="FighterDetail\Skill.cs" />
     <Compile Include="Forms\SkillDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,8 +179,6 @@
     <Compile Include="Forms\UserControls\SkillsTab.Designer.cs">
       <DependentUpon>SkillsTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="FighterDetail\Spell.cs" />
-    <Compile Include="FighterDetail\Fighter.cs" />
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,7 +207,6 @@
     <Compile Include="Forms\StatBlockDesigner.Designer.cs">
       <DependentUpon>StatBlockDesigner.cs</DependentUpon>
     </Compile>
-    <Compile Include="FighterDetail\Status.cs" />
     <Compile Include="Forms\StatusWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +298,7 @@
     <EmbeddedResource Include="Forms\TableErrorBox.resx">
       <DependentUpon>TableErrorBox.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="BasicBattleTracking_NewKey.pfx" />
     <None Include="BasicBattleTracking_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -377,6 +375,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BattleCore\BattleCore.csproj">
+      <Project>{cdd03166-79d4-41d7-9507-de08790e64ac}</Project>
+      <Name>BattleCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using BasicBattleTracking.Forms;
 
 namespace BasicBattleTracking
 {
@@ -13,7 +14,6 @@ namespace BasicBattleTracking
         public static Settings activeSettings;
         public static string ProgramName = "Pathfinder Omnitool";
         public static string activeSessionName;
-        private static Thread SplashThread;
 
         /// <summary>
         /// The main entry point for the application.
@@ -23,11 +23,6 @@ namespace BasicBattleTracking
         
         static void Main()
         {
-            ThreadStart childRef = new ThreadStart(SplashScreen);
-            SplashThread = new Thread(childRef);
-            SplashThread.Start();
-            activeSettings = new Settings();
-            activeSessionName = "New Session";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
@@ -50,11 +45,6 @@ namespace BasicBattleTracking
         private static void SplashScreen()
         {
             Application.Run(new SplashScreen());
-        }
-
-        public static void EndSplashScreen()
-        {
-            SplashThread.Abort();
         }
     }
 }

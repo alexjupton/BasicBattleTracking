@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicBattleTracking.Dice
+namespace BattleCore.Dice
 {
     public class Die
     {

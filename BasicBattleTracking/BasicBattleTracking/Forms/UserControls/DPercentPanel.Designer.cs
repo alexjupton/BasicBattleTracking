@@ -66,7 +66,6 @@
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "d% Tables";
-            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // button1
             // 
@@ -77,7 +76,6 @@
             this.button1.TabIndex = 29;
             this.button1.Text = "Delete Table";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // addFighterButton
             // 
@@ -88,7 +86,6 @@
             this.addFighterButton.TabIndex = 28;
             this.addFighterButton.Text = "New Table";
             this.addFighterButton.UseVisualStyleBackColor = true;
-            this.addFighterButton.Click += new System.EventHandler(this.addFighterButton_Click);
             // 
             // resultBox
             // 
@@ -131,7 +128,6 @@
             this.npcAttackButton.TabIndex = 24;
             this.npcAttackButton.Text = "Roll";
             this.npcAttackButton.UseVisualStyleBackColor = true;
-            this.npcAttackButton.Click += new System.EventHandler(this.npcAttackButton_Click);
             // 
             // groupBox1
             // 
@@ -173,7 +169,6 @@
             this.tableList.Name = "tableList";
             this.tableList.Size = new System.Drawing.Size(121, 21);
             this.tableList.TabIndex = 1;
-            this.tableList.SelectedIndexChanged += new System.EventHandler(this.tableList_SelectedIndexChanged);
             // 
             // resultsView
             // 
@@ -188,7 +183,6 @@
             this.resultsView.TabIndex = 0;
             this.resultsView.UseCompatibleStateImageBehavior = false;
             this.resultsView.View = System.Windows.Forms.View.Details;
-            this.resultsView.SelectedIndexChanged += new System.EventHandler(this.resultsView_SelectedIndexChanged);
             // 
             // columnHeader5
             // 
@@ -209,7 +203,6 @@
             this.button2.TabIndex = 30;
             this.button2.Text = "Edit Table";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // DPercentPanel
             // 
@@ -219,7 +212,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DPercentPanel";
             this.Size = new System.Drawing.Size(536, 425);
-            this.Load += new System.EventHandler(this.DPercentPanel_Load);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);

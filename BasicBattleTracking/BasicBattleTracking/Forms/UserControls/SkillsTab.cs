@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BasicBattleTracking.FighterDetail;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
     public partial class SkillsTab : UserControl
-    {
+{
         private Fighter activeFighter;
         private Skill selectedSkill;
         public MainWindow ParentWindow { get; set; }
@@ -37,19 +37,19 @@ namespace BasicBattleTracking
         public void UpdateSkillsList()
         {
             skillList.Items.Clear();
-            if(activeFighter != null)
+            if (activeFighter != null)
             {
                 if (activeFighter.skills.Count > 0)
                 {
                     foreach (Skill s in activeFighter.skills)
                     {
                         skillList.Items.Add(new ListViewItem(new string[]{s.name, (s.abilityMod + s.ranks + s.miscMod).ToString() + "           (" + s.abilityMod + " + " +
-                        s.ranks + " + " + s.miscMod + ")", s.isClassSkill.ToString()}));
+                                s.ranks + " + " + s.miscMod + ")", s.isClassSkill.ToString()}));
                     }
                 }
             }
 
-            if(skillList.Items.Count <= 0)
+            if (skillList.Items.Count <= 0)
             {
                 skillCheckButton.Enabled = false;
             }
@@ -77,13 +77,13 @@ namespace BasicBattleTracking
 
         private void skillNameBox_TextChanged(object sender, EventArgs e)
         {
-            if(selectedSkill != null)
+            if (selectedSkill != null)
             {
                 try
                 {
                     selectedSkill.name = skillNameBox.Text;
                     if (!skillIndexChanging)
-                    UpdateSkillsList();
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back skill name change"); }
             }
@@ -96,7 +96,7 @@ namespace BasicBattleTracking
                 try
                 {
                     selectedSkill.abilitySource = abilitySourceBox.Text;
-                    switch(abilitySourceBox.SelectedIndex)
+                    switch (abilitySourceBox.SelectedIndex)
                     {
                         case 0: abilityBonusBox.Text = Program.getAbilityMod(activeFighter.Str).ToString(); break;
                         case 1: abilityBonusBox.Text = Program.getAbilityMod(activeFighter.Dex).ToString(); break;
@@ -105,8 +105,8 @@ namespace BasicBattleTracking
                         case 4: abilityBonusBox.Text = Program.getAbilityMod(activeFighter.Wis).ToString(); break;
                         default: abilityBonusBox.Text = Program.getAbilityMod(activeFighter.Cha).ToString(); break;
                     }
-                    if(!skillIndexChanging)
-                    UpdateSkillsList();
+                    if (!skillIndexChanging)
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back skill ability source change"); }
             }
@@ -120,7 +120,7 @@ namespace BasicBattleTracking
                 {
                     selectedSkill.abilityMod = Int32.Parse(abilityBonusBox.Text);
                     if (!skillIndexChanging)
-                    UpdateSkillsList();
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back ability bonus change"); }
             }
@@ -133,23 +133,23 @@ namespace BasicBattleTracking
                 try
                 {
                     selectedSkill.ranks = Int32.Parse(rankBonusBox.Text);
-                    if(selectedSkill.isClassSkill && selectedSkill.ranks > 0 && !selectedSkill.classModifierApplied)
+                    if (selectedSkill.isClassSkill && selectedSkill.ranks > 0 && !selectedSkill.classModifierApplied)
                     {
                         selectedSkill.miscMod += 3;
                         miscBonusBox.Text = selectedSkill.miscMod.ToString();
                         selectedSkill.classModifierApplied = true;
                     }
 
-                    
-                    if(selectedSkill.isClassSkill && selectedSkill.ranks <= 0 && selectedSkill.classModifierApplied)
+
+                    if (selectedSkill.isClassSkill && selectedSkill.ranks <= 0 && selectedSkill.classModifierApplied)
                     {
                         selectedSkill.miscMod -= 3;
                         miscBonusBox.Text = selectedSkill.miscMod.ToString();
                         selectedSkill.classModifierApplied = false;
                     }
-                    
+
                     if (!skillIndexChanging)
-                    UpdateSkillsList();
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back ranks bonus change"); }
             }
@@ -163,7 +163,7 @@ namespace BasicBattleTracking
                 {
                     selectedSkill.miscMod = Int32.Parse(miscBonusBox.Text);
                     if (!skillIndexChanging)
-                    UpdateSkillsList();
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back misc bonus change"); }
             }
@@ -175,12 +175,12 @@ namespace BasicBattleTracking
             {
                 try
                 {
-                    if(selectedSkill.isClassSkill && !classCheckBox.Checked && selectedSkill.classModifierApplied)
+                    if (selectedSkill.isClassSkill && !classCheckBox.Checked && selectedSkill.classModifierApplied)
                     {
                         selectedSkill.miscMod -= 3;
                         selectedSkill.classModifierApplied = false;
                     }
-                    if(!selectedSkill.isClassSkill && classCheckBox.Checked && selectedSkill.ranks > 0 && !selectedSkill.classModifierApplied)
+                    if (!selectedSkill.isClassSkill && classCheckBox.Checked && selectedSkill.ranks > 0 && !selectedSkill.classModifierApplied)
                     {
                         selectedSkill.miscMod += 3;
                         selectedSkill.classModifierApplied = true;
@@ -188,7 +188,7 @@ namespace BasicBattleTracking
                     selectedSkill.isClassSkill = classCheckBox.Checked;
                     miscBonusBox.Text = selectedSkill.miscMod.ToString();
                     if (!skillIndexChanging)
-                    UpdateSkillsList();
+                        UpdateSkillsList();
                 }
                 catch { Console.WriteLine("Unable to write back class bonus change"); }
             }
@@ -218,7 +218,7 @@ namespace BasicBattleTracking
             string log = activeFighter.Name + " made a " + selectedSkill.name + " check of " + result.ToString() + "!";
             if (ParentWindow != null)
             {
-                ParentWindow.WriteToLog(log);
+                //ParentWindow.WriteToLog(log);
             }
             return log;
 

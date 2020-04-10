@@ -30,12 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.InitOrderView = new System.Windows.Forms.ListView();
-            this.OrderColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.NameColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.InitValueColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.HP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Held = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addFighterButton = new System.Windows.Forms.Button();
             this.ControlsBox = new System.Windows.Forms.GroupBox();
             this.editButton = new System.Windows.Forms.Button();
@@ -260,6 +254,28 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControl5 = new System.Windows.Forms.TabControl();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.InitOrderView = new System.Windows.Forms.ListView();
+            this.OrderColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NameColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.InitValueColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.HP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Held = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.lvwDying = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.lvwDead = new System.Windows.Forms.ListView();
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.statusTab = new System.Windows.Forms.TabPage();
             this.encounterPage = new System.Windows.Forms.TabPage();
@@ -299,6 +315,10 @@
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabControl5.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            this.tabPage13.SuspendLayout();
             this.tabControl4.SuspendLayout();
             this.statusTab.SuspendLayout();
             this.encounterPage.SuspendLayout();
@@ -306,51 +326,6 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // InitOrderView
-            // 
-            this.InitOrderView.BackColor = System.Drawing.SystemColors.Window;
-            this.InitOrderView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.OrderColumn,
-            this.NameColumn,
-            this.InitValueColumn,
-            this.HP,
-            this.Held});
-            this.InitOrderView.FullRowSelect = true;
-            this.InitOrderView.HideSelection = false;
-            this.InitOrderView.Location = new System.Drawing.Point(5, 34);
-            this.InitOrderView.Margin = new System.Windows.Forms.Padding(2);
-            this.InitOrderView.MultiSelect = false;
-            this.InitOrderView.Name = "InitOrderView";
-            this.InitOrderView.Size = new System.Drawing.Size(279, 274);
-            this.InitOrderView.TabIndex = 0;
-            this.InitOrderView.UseCompatibleStateImageBehavior = false;
-            this.InitOrderView.View = System.Windows.Forms.View.Details;
-            this.InitOrderView.SelectedIndexChanged += new System.EventHandler(this.initOrder_selectedIndexChanged);
-            // 
-            // OrderColumn
-            // 
-            this.OrderColumn.Text = "Order";
-            this.OrderColumn.Width = 55;
-            // 
-            // NameColumn
-            // 
-            this.NameColumn.Text = "Name";
-            this.NameColumn.Width = 63;
-            // 
-            // InitValueColumn
-            // 
-            this.InitValueColumn.Text = "Initiative";
-            this.InitValueColumn.Width = 51;
-            // 
-            // HP
-            // 
-            this.HP.Text = "HP";
-            this.HP.Width = 46;
-            // 
-            // Held
-            // 
-            this.Held.Text = "Held";
             // 
             // addFighterButton
             // 
@@ -369,7 +344,7 @@
             this.ControlsBox.Controls.Add(this.button5);
             this.ControlsBox.Controls.Add(this.removeFighterButton);
             this.ControlsBox.Controls.Add(this.addFighterButton);
-            this.ControlsBox.Location = new System.Drawing.Point(295, 34);
+            this.ControlsBox.Location = new System.Drawing.Point(308, 35);
             this.ControlsBox.Margin = new System.Windows.Forms.Padding(2);
             this.ControlsBox.Name = "ControlsBox";
             this.ControlsBox.Padding = new System.Windows.Forms.Padding(2);
@@ -388,7 +363,6 @@
             this.editButton.TabIndex = 7;
             this.editButton.Text = "Edit NPC";
             this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // button5
             // 
@@ -399,7 +373,6 @@
             this.button5.TabIndex = 6;
             this.button5.Text = "Add NPC";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // removeFighterButton
             // 
@@ -411,7 +384,6 @@
             this.removeFighterButton.TabIndex = 2;
             this.removeFighterButton.Text = "Remove Fighter";
             this.removeFighterButton.UseVisualStyleBackColor = true;
-            this.removeFighterButton.Click += new System.EventHandler(this.removeFighterButton_Click);
             // 
             // initButton
             // 
@@ -423,18 +395,17 @@
             this.initButton.TabIndex = 3;
             this.initButton.Text = "Roll Initiative";
             this.initButton.UseVisualStyleBackColor = true;
-            this.initButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.initButton);
             this.groupBox1.Controls.Add(this.prevButton);
             this.groupBox1.Controls.Add(this.nextButton);
-            this.groupBox1.Location = new System.Drawing.Point(295, 131);
+            this.groupBox1.Location = new System.Drawing.Point(310, 132);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(168, 113);
+            this.groupBox1.Size = new System.Drawing.Size(168, 112);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Turn Controls";
@@ -449,7 +420,6 @@
             this.prevButton.TabIndex = 3;
             this.prevButton.Text = "Previous";
             this.prevButton.UseVisualStyleBackColor = true;
-            this.prevButton.Click += new System.EventHandler(this.button5_Click);
             // 
             // nextButton
             // 
@@ -461,19 +431,17 @@
             this.nextButton.TabIndex = 2;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // unholdButton
             // 
             this.unholdButton.Enabled = false;
-            this.unholdButton.Location = new System.Drawing.Point(115, 65);
+            this.unholdButton.Location = new System.Drawing.Point(102, 65);
             this.unholdButton.Margin = new System.Windows.Forms.Padding(2);
             this.unholdButton.Name = "unholdButton";
-            this.unholdButton.Size = new System.Drawing.Size(80, 40);
+            this.unholdButton.Size = new System.Drawing.Size(59, 40);
             this.unholdButton.TabIndex = 5;
             this.unholdButton.Text = "Unhold Action";
             this.unholdButton.UseVisualStyleBackColor = true;
-            this.unholdButton.Click += new System.EventHandler(this.unholdButton_Click);
             // 
             // holdButton
             // 
@@ -485,7 +453,6 @@
             this.holdButton.TabIndex = 1;
             this.holdButton.Text = "Hold Action";
             this.holdButton.UseVisualStyleBackColor = true;
-            this.holdButton.Click += new System.EventHandler(this.holdButton_Click);
             // 
             // statusButton
             // 
@@ -497,7 +464,6 @@
             this.statusButton.TabIndex = 4;
             this.statusButton.Text = "Add Status";
             this.statusButton.UseVisualStyleBackColor = true;
-            this.statusButton.Click += new System.EventHandler(this.statusButton_Click);
             // 
             // AttackButton
             // 
@@ -505,11 +471,10 @@
             this.AttackButton.Location = new System.Drawing.Point(5, 17);
             this.AttackButton.Margin = new System.Windows.Forms.Padding(2);
             this.AttackButton.Name = "AttackButton";
-            this.AttackButton.Size = new System.Drawing.Size(188, 36);
+            this.AttackButton.Size = new System.Drawing.Size(166, 36);
             this.AttackButton.TabIndex = 0;
             this.AttackButton.Text = "Attack";
             this.AttackButton.UseVisualStyleBackColor = true;
-            this.AttackButton.Click += new System.EventHandler(this.AttackButton_Click);
             // 
             // groupBox2
             // 
@@ -524,7 +489,6 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Log";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // LogBox
             // 
@@ -569,7 +533,6 @@
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Active Player";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // activeLabel
             // 
@@ -601,7 +564,6 @@
             this.statusView.TabIndex = 9;
             this.statusView.UseCompatibleStateImageBehavior = false;
             this.statusView.View = System.Windows.Forms.View.Details;
-            this.statusView.SelectedIndexChanged += new System.EventHandler(this.statusView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -628,9 +590,9 @@
             this.groupBox3.Controls.Add(this.unholdButton);
             this.groupBox3.Controls.Add(this.AttackButton);
             this.groupBox3.Controls.Add(this.holdButton);
-            this.groupBox3.Location = new System.Drawing.Point(468, 131);
+            this.groupBox3.Location = new System.Drawing.Point(483, 132);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 113);
+            this.groupBox3.Size = new System.Drawing.Size(185, 113);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Action Controls";
@@ -645,7 +607,6 @@
             this.RemoveStatusButton.TabIndex = 5;
             this.RemoveStatusButton.Text = "Rmove Status";
             this.RemoveStatusButton.UseVisualStyleBackColor = true;
-            this.RemoveStatusButton.Click += new System.EventHandler(this.RemoveStatusButton_Click);
             // 
             // groupBox4
             // 
@@ -719,7 +680,6 @@
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Roll Console";
-            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
             // tabControl2
             // 
@@ -771,7 +731,6 @@
             this.tabPage4.Size = new System.Drawing.Size(697, 340);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Attacks / Saves";
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // label40
             // 
@@ -793,7 +752,6 @@
             this.CMBButton.TabIndex = 0;
             this.CMBButton.Text = "Combat Maneuver";
             this.CMBButton.UseVisualStyleBackColor = true;
-            this.CMBButton.Click += new System.EventHandler(this.CMBButton_Click);
             // 
             // AtkNameLabel
             // 
@@ -815,7 +773,6 @@
             this.DmgDexBonusBox.TabIndex = 100;
             this.DmgDexBonusBox.Text = "Add Dex Mod";
             this.DmgDexBonusBox.UseVisualStyleBackColor = true;
-            this.DmgDexBonusBox.CheckedChanged += new System.EventHandler(this.DmgDexBonusBox_CheckedChanged);
             // 
             // npcAttackButton
             // 
@@ -827,7 +784,6 @@
             this.npcAttackButton.TabIndex = 23;
             this.npcAttackButton.Text = "Roll Attack";
             this.npcAttackButton.UseVisualStyleBackColor = true;
-            this.npcAttackButton.Click += new System.EventHandler(this.npcAttackButton_Click);
             // 
             // attackView
             // 
@@ -847,7 +803,6 @@
             this.attackView.TabIndex = 22;
             this.attackView.UseCompatibleStateImageBehavior = false;
             this.attackView.View = System.Windows.Forms.View.Details;
-            this.attackView.SelectedIndexChanged += new System.EventHandler(this.attackView_SelectedIndexChanged);
             // 
             // Attack
             // 
@@ -879,7 +834,6 @@
             this.DmgStrBonusBox.TabIndex = 99;
             this.DmgStrBonusBox.Text = "Add Str Mod";
             this.DmgStrBonusBox.UseVisualStyleBackColor = true;
-            this.DmgStrBonusBox.CheckedChanged += new System.EventHandler(this.DmgStrBonusBox_CheckedChanged);
             // 
             // rollBox
             // 
@@ -933,7 +887,6 @@
             this.FortButton.TabIndex = 4;
             this.FortButton.Text = "Fortitude Save";
             this.FortButton.UseVisualStyleBackColor = true;
-            this.FortButton.Click += new System.EventHandler(this.fortButton_Click);
             // 
             // rawDamageLabel
             // 
@@ -955,7 +908,6 @@
             this.AtkDexBonusBox.TabIndex = 97;
             this.AtkDexBonusBox.Text = "Add Dex Mod";
             this.AtkDexBonusBox.UseVisualStyleBackColor = true;
-            this.AtkDexBonusBox.CheckedChanged += new System.EventHandler(this.AtkDexBonusBox_CheckedChanged);
             // 
             // atkModBox
             // 
@@ -978,7 +930,6 @@
             this.RefButton.TabIndex = 5;
             this.RefButton.Text = "Reflex Save";
             this.RefButton.UseVisualStyleBackColor = true;
-            this.RefButton.Click += new System.EventHandler(this.RefButton_Click);
             // 
             // d20Label
             // 
@@ -1001,7 +952,6 @@
             this.AtkStrBonusBox.TabIndex = 96;
             this.AtkStrBonusBox.Text = "Add Str Mod";
             this.AtkStrBonusBox.UseVisualStyleBackColor = true;
-            this.AtkStrBonusBox.CheckedChanged += new System.EventHandler(this.AtkStrBonusBox_CheckedChanged);
             // 
             // dmgBonusLabel
             // 
@@ -1023,7 +973,6 @@
             this.WillButton.TabIndex = 6;
             this.WillButton.Text = "Will Save";
             this.WillButton.UseVisualStyleBackColor = true;
-            this.WillButton.Click += new System.EventHandler(this.willButton_Click);
             // 
             // label13
             // 
@@ -1251,7 +1200,6 @@
             this.d6ResultBox.Size = new System.Drawing.Size(39, 20);
             this.d6ResultBox.TabIndex = 82;
             this.d6ResultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.d6ResultBox.TextChanged += new System.EventHandler(this.d6ResultBox_TextChanged);
             // 
             // d4ResultBox
             // 
@@ -1326,7 +1274,6 @@
             this.dxRollButton.TabIndex = 62;
             this.dxRollButton.Text = "Roll";
             this.dxRollButton.UseVisualStyleBackColor = true;
-            this.dxRollButton.Click += new System.EventHandler(this.dxRollButton_Click);
             // 
             // d100RollButton
             // 
@@ -1336,7 +1283,6 @@
             this.d100RollButton.TabIndex = 58;
             this.d100RollButton.Text = "Roll";
             this.d100RollButton.UseVisualStyleBackColor = true;
-            this.d100RollButton.Click += new System.EventHandler(this.d100RollButton_Click);
             // 
             // d12RollButton
             // 
@@ -1346,7 +1292,6 @@
             this.d12RollButton.TabIndex = 55;
             this.d12RollButton.Text = "Roll";
             this.d12RollButton.UseVisualStyleBackColor = true;
-            this.d12RollButton.Click += new System.EventHandler(this.d12RollButton_Click);
             // 
             // d10RollButton
             // 
@@ -1356,7 +1301,6 @@
             this.d10RollButton.TabIndex = 52;
             this.d10RollButton.Text = "Roll";
             this.d10RollButton.UseVisualStyleBackColor = true;
-            this.d10RollButton.Click += new System.EventHandler(this.d10RollButton_Click);
             // 
             // d8RollButton
             // 
@@ -1366,7 +1310,6 @@
             this.d8RollButton.TabIndex = 49;
             this.d8RollButton.Text = "Roll";
             this.d8RollButton.UseVisualStyleBackColor = true;
-            this.d8RollButton.Click += new System.EventHandler(this.d8RollButton_Click);
             // 
             // d6RollButton
             // 
@@ -1376,7 +1319,6 @@
             this.d6RollButton.TabIndex = 46;
             this.d6RollButton.Text = "Roll";
             this.d6RollButton.UseVisualStyleBackColor = true;
-            this.d6RollButton.Click += new System.EventHandler(this.d6RollButton_Click);
             // 
             // d4RollButton
             // 
@@ -1386,7 +1328,6 @@
             this.d4RollButton.TabIndex = 43;
             this.d4RollButton.Text = "Roll";
             this.d4RollButton.UseVisualStyleBackColor = true;
-            this.d4RollButton.Click += new System.EventHandler(this.d4RollButton_Click);
             // 
             // dxModBox
             // 
@@ -1609,12 +1550,12 @@
             // d20RollButton
             // 
             this.d20RollButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("d20RollButton.BackgroundImage")));
+            this.d20RollButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.d20RollButton.Location = new System.Drawing.Point(1097, 99);
             this.d20RollButton.Name = "d20RollButton";
             this.d20RollButton.Size = new System.Drawing.Size(103, 103);
             this.d20RollButton.TabIndex = 43;
             this.d20RollButton.UseVisualStyleBackColor = true;
-            this.d20RollButton.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // d4CountBox
             // 
@@ -1747,7 +1688,6 @@
             this.label17.Size = new System.Drawing.Size(37, 13);
             this.label17.TabIndex = 28;
             this.label17.Text = "Result";
-            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // label16
             // 
@@ -1787,7 +1727,6 @@
             this.fighterInfoBox.TabIndex = 12;
             this.fighterInfoBox.TabStop = false;
             this.fighterInfoBox.Text = "Selected Player Stats";
-            this.fighterInfoBox.Enter += new System.EventHandler(this.fighterInfoBox_Enter);
             // 
             // tabControl3
             // 
@@ -1832,7 +1771,7 @@
             // 
             // displayFighterSource
             // 
-            this.displayFighterSource.DataSource = typeof(BasicBattleTracking.FighterDetail.Fighter);
+            this.displayFighterSource.DataSource = typeof(BattleCore.FighterDetail.Fighter);
             // 
             // label53
             // 
@@ -1869,7 +1808,6 @@
             this.npcNameBox.Name = "npcNameBox";
             this.npcNameBox.Size = new System.Drawing.Size(221, 20);
             this.npcNameBox.TabIndex = 18;
-            this.npcNameBox.TextChanged += new System.EventHandler(this.HandleUpdatableChange);
             // 
             // label51
             // 
@@ -1888,7 +1826,6 @@
             this.hpLabel.Name = "hpLabel";
             this.hpLabel.Size = new System.Drawing.Size(45, 20);
             this.hpLabel.TabIndex = 16;
-            this.hpLabel.TextChanged += new System.EventHandler(this.HandleUpdatableChange);
             // 
             // groupBox7
             // 
@@ -2060,7 +1997,6 @@
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Abilities and Mods";
             this.tabPage9.UseVisualStyleBackColor = true;
-            this.tabPage9.Click += new System.EventHandler(this.tabPage9_Click);
             // 
             // label8
             // 
@@ -2426,7 +2362,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1432, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -2446,7 +2381,6 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.newToolStripMenuItem.Text = "New Session";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openSessionToolStripMenuItem
             // 
@@ -2454,7 +2388,6 @@
             this.openSessionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openSessionToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.openSessionToolStripMenuItem.Text = "Open Session";
-            this.openSessionToolStripMenuItem.Click += new System.EventHandler(this.openSessionToolStripMenuItem_Click);
             // 
             // saveSessionToolStripMenuItem
             // 
@@ -2462,21 +2395,18 @@
             this.saveSessionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.saveSessionToolStripMenuItem.Text = "Save Session";
-            this.saveSessionToolStripMenuItem.Click += new System.EventHandler(this.saveSessionToolStripMenuItem_Click);
             // 
             // saveSessionAsToolStripMenuItem
             // 
             this.saveSessionAsToolStripMenuItem.Name = "saveSessionAsToolStripMenuItem";
             this.saveSessionAsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.saveSessionAsToolStripMenuItem.Text = "Save Session As...";
-            this.saveSessionAsToolStripMenuItem.Click += new System.EventHandler(this.saveSessionAsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // activePlayerControlsToolStripMenuItem
             // 
@@ -2499,7 +2429,6 @@
             this.addPCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
             this.addPCToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.addPCToolStripMenuItem.Text = "Add PC";
-            this.addPCToolStripMenuItem.Click += new System.EventHandler(this.addPCToolStripMenuItem_Click);
             // 
             // addNPCToolStripMenuItem
             // 
@@ -2507,7 +2436,6 @@
             this.addNPCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.N)));
             this.addNPCToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.addNPCToolStripMenuItem.Text = "Add NPC";
-            this.addNPCToolStripMenuItem.Click += new System.EventHandler(this.addNPCToolStripMenuItem_Click);
             // 
             // editCharacterToolStripMenuItem
             // 
@@ -2525,14 +2453,12 @@
             this.removeCharacterToolStripMenuItem.Name = "removeCharacterToolStripMenuItem";
             this.removeCharacterToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.removeCharacterToolStripMenuItem.Text = "Remove Character";
-            this.removeCharacterToolStripMenuItem.Click += new System.EventHandler(this.removeCharacterToolStripMenuItem_Click);
             // 
             // alexToolStripMenuItem
             // 
             this.alexToolStripMenuItem.Name = "alexToolStripMenuItem";
             this.alexToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.alexToolStripMenuItem.Text = "Alex";
-            this.alexToolStripMenuItem.Click += new System.EventHandler(this.alexToolStripMenuItem_Click);
             // 
             // rollInitiativeToolStripMenuItem
             // 
@@ -2541,7 +2467,6 @@
             this.rollInitiativeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
             this.rollInitiativeToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.rollInitiativeToolStripMenuItem.Text = "Roll Initiative";
-            this.rollInitiativeToolStripMenuItem.Click += new System.EventHandler(this.rollInitiativeToolStripMenuItem_Click);
             // 
             // nextTurnToolStripMenuItem
             // 
@@ -2550,7 +2475,6 @@
             this.nextTurnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Right)));
             this.nextTurnToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.nextTurnToolStripMenuItem.Text = "Next Turn";
-            this.nextTurnToolStripMenuItem.Click += new System.EventHandler(this.nextTurnToolStripMenuItem_Click);
             // 
             // previousTurnToolStripMenuItem
             // 
@@ -2559,7 +2483,6 @@
             this.previousTurnToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Left)));
             this.previousTurnToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.previousTurnToolStripMenuItem.Text = "Previous Turn";
-            this.previousTurnToolStripMenuItem.Click += new System.EventHandler(this.previousTurnToolStripMenuItem_Click);
             // 
             // setToTurn1ToolStripMenuItem
             // 
@@ -2568,7 +2491,6 @@
             this.setToTurn1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
             this.setToTurn1ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.setToTurn1ToolStripMenuItem.Text = "Revert to Turn 1";
-            this.setToTurn1ToolStripMenuItem.Click += new System.EventHandler(this.setToTurn1ToolStripMenuItem_Click);
             // 
             // activePlayerControlsToolStripMenuItem1
             // 
@@ -2589,14 +2511,12 @@
             this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
             this.attackToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.attackToolStripMenuItem.Text = "Attack";
-            this.attackToolStripMenuItem.Click += new System.EventHandler(this.attackToolStripMenuItem_Click);
             // 
             // combatManueverToolStripMenuItem
             // 
             this.combatManueverToolStripMenuItem.Name = "combatManueverToolStripMenuItem";
             this.combatManueverToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.combatManueverToolStripMenuItem.Text = "Combat Manuever";
-            this.combatManueverToolStripMenuItem.Click += new System.EventHandler(this.combatManueverToolStripMenuItem_Click);
             // 
             // savesToolStripMenuItem
             // 
@@ -2613,21 +2533,18 @@
             this.fortitudeToolStripMenuItem.Name = "fortitudeToolStripMenuItem";
             this.fortitudeToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.fortitudeToolStripMenuItem.Text = "Fortitude";
-            this.fortitudeToolStripMenuItem.Click += new System.EventHandler(this.fortitudeToolStripMenuItem_Click);
             // 
             // reflexToolStripMenuItem
             // 
             this.reflexToolStripMenuItem.Name = "reflexToolStripMenuItem";
             this.reflexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.reflexToolStripMenuItem.Text = "Reflex";
-            this.reflexToolStripMenuItem.Click += new System.EventHandler(this.reflexToolStripMenuItem_Click);
             // 
             // willToolStripMenuItem
             // 
             this.willToolStripMenuItem.Name = "willToolStripMenuItem";
             this.willToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.willToolStripMenuItem.Text = "Will";
-            this.willToolStripMenuItem.Click += new System.EventHandler(this.willToolStripMenuItem_Click);
             // 
             // skillsToolStripMenuItem
             // 
@@ -2640,7 +2557,6 @@
             this.holdActionToolStripMenuItem.Name = "holdActionToolStripMenuItem";
             this.holdActionToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.holdActionToolStripMenuItem.Text = "Hold Action";
-            this.holdActionToolStripMenuItem.Click += new System.EventHandler(this.holdActionToolStripMenuItem_Click);
             // 
             // unholdActionToolStripMenuItem
             // 
@@ -2653,7 +2569,6 @@
             this.viewCharacterSheetToolStripMenuItem.Name = "viewCharacterSheetToolStripMenuItem";
             this.viewCharacterSheetToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.viewCharacterSheetToolStripMenuItem.Text = "View Character Sheet...";
-            this.viewCharacterSheetToolStripMenuItem.Click += new System.EventHandler(this.viewCharacterSheetToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -2668,7 +2583,6 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.settingsToolStripMenuItem.Text = "Settings...";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -2685,9 +2599,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.tabControl5);
             this.tabPage1.Controls.Add(this.tabControl4);
             this.tabPage1.Controls.Add(this.groupBox10);
-            this.tabPage1.Controls.Add(this.InitOrderView);
             this.tabPage1.Controls.Add(this.fighterInfoBox);
             this.tabPage1.Controls.Add(this.ControlsBox);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -2700,7 +2614,185 @@
             this.tabPage1.Size = new System.Drawing.Size(1424, 1003);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Battle Tracking";
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // tabControl5
+            // 
+            this.tabControl5.Controls.Add(this.tabPage11);
+            this.tabControl5.Controls.Add(this.tabPage12);
+            this.tabControl5.Controls.Add(this.tabPage13);
+            this.tabControl5.Location = new System.Drawing.Point(9, 6);
+            this.tabControl5.Name = "tabControl5";
+            this.tabControl5.SelectedIndex = 0;
+            this.tabControl5.Size = new System.Drawing.Size(294, 302);
+            this.tabControl5.TabIndex = 15;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage11.Controls.Add(this.InitOrderView);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(286, 276);
+            this.tabPage11.TabIndex = 0;
+            this.tabPage11.Text = "Active";
+            // 
+            // InitOrderView
+            // 
+            this.InitOrderView.BackColor = System.Drawing.SystemColors.Window;
+            this.InitOrderView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.OrderColumn,
+            this.NameColumn,
+            this.InitValueColumn,
+            this.HP,
+            this.Held});
+            this.InitOrderView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InitOrderView.FullRowSelect = true;
+            this.InitOrderView.HideSelection = false;
+            this.InitOrderView.Location = new System.Drawing.Point(3, 3);
+            this.InitOrderView.Margin = new System.Windows.Forms.Padding(2);
+            this.InitOrderView.MultiSelect = false;
+            this.InitOrderView.Name = "InitOrderView";
+            this.InitOrderView.Size = new System.Drawing.Size(280, 270);
+            this.InitOrderView.TabIndex = 1;
+            this.InitOrderView.UseCompatibleStateImageBehavior = false;
+            this.InitOrderView.View = System.Windows.Forms.View.Details;
+            // 
+            // OrderColumn
+            // 
+            this.OrderColumn.Text = "Order";
+            this.OrderColumn.Width = 55;
+            // 
+            // NameColumn
+            // 
+            this.NameColumn.Text = "Name";
+            this.NameColumn.Width = 63;
+            // 
+            // InitValueColumn
+            // 
+            this.InitValueColumn.Text = "Initiative";
+            this.InitValueColumn.Width = 51;
+            // 
+            // HP
+            // 
+            this.HP.Text = "HP";
+            this.HP.Width = 46;
+            // 
+            // Held
+            // 
+            this.Held.Text = "Held";
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage12.Controls.Add(this.lvwDying);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(286, 276);
+            this.tabPage12.TabIndex = 1;
+            this.tabPage12.Text = "Dying";
+            // 
+            // lvwDying
+            // 
+            this.lvwDying.BackColor = System.Drawing.SystemColors.Window;
+            this.lvwDying.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9});
+            this.lvwDying.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwDying.FullRowSelect = true;
+            this.lvwDying.HideSelection = false;
+            this.lvwDying.Location = new System.Drawing.Point(3, 3);
+            this.lvwDying.Margin = new System.Windows.Forms.Padding(2);
+            this.lvwDying.MultiSelect = false;
+            this.lvwDying.Name = "lvwDying";
+            this.lvwDying.Size = new System.Drawing.Size(280, 270);
+            this.lvwDying.TabIndex = 2;
+            this.lvwDying.UseCompatibleStateImageBehavior = false;
+            this.lvwDying.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Order";
+            this.columnHeader5.Width = 55;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Name";
+            this.columnHeader6.Width = 63;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Initiative";
+            this.columnHeader7.Width = 51;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "HP";
+            this.columnHeader8.Width = 46;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Held";
+            // 
+            // tabPage13
+            // 
+            this.tabPage13.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage13.Controls.Add(this.lvwDead);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage13.Size = new System.Drawing.Size(286, 276);
+            this.tabPage13.TabIndex = 2;
+            this.tabPage13.Text = "Dead/Inactive";
+            // 
+            // lvwDead
+            // 
+            this.lvwDead.BackColor = System.Drawing.SystemColors.Window;
+            this.lvwDead.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14});
+            this.lvwDead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwDead.FullRowSelect = true;
+            this.lvwDead.HideSelection = false;
+            this.lvwDead.Location = new System.Drawing.Point(3, 3);
+            this.lvwDead.Margin = new System.Windows.Forms.Padding(2);
+            this.lvwDead.MultiSelect = false;
+            this.lvwDead.Name = "lvwDead";
+            this.lvwDead.Size = new System.Drawing.Size(280, 270);
+            this.lvwDead.TabIndex = 2;
+            this.lvwDead.UseCompatibleStateImageBehavior = false;
+            this.lvwDead.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Order";
+            this.columnHeader10.Width = 55;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Name";
+            this.columnHeader11.Width = 63;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Initiative";
+            this.columnHeader12.Width = 51;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "HP";
+            this.columnHeader13.Width = 46;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Held";
             // 
             // tabControl4
             // 
@@ -2754,9 +2846,9 @@
             this.groupBox10.Controls.Add(this.turnLabel);
             this.groupBox10.Controls.Add(this.activeLabel);
             this.groupBox10.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.groupBox10.Location = new System.Drawing.Point(557, 34);
+            this.groupBox10.Location = new System.Drawing.Point(570, 34);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(111, 93);
+            this.groupBox10.Size = new System.Drawing.Size(98, 93);
             this.groupBox10.TabIndex = 13;
             this.groupBox10.TabStop = false;
             // 
@@ -2770,7 +2862,6 @@
             this.tabPage2.Size = new System.Drawing.Size(1424, 1003);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Reference";
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // dPercentTableControls
             // 
@@ -2779,9 +2870,8 @@
             this.dPercentTableControls.Location = new System.Drawing.Point(2, 5);
             this.dPercentTableControls.Margin = new System.Windows.Forms.Padding(1);
             this.dPercentTableControls.Name = "dPercentTableControls";
-            this.dPercentTableControls.Size = new System.Drawing.Size(533, 425);
+            this.dPercentTableControls.Size = new System.Drawing.Size(0, 0);
             this.dPercentTableControls.TabIndex = 1;
-            this.dPercentTableControls.Load += new System.EventHandler(this.dPercentTableControls_Load);
             // 
             // tabPage3
             // 
@@ -2794,7 +2884,6 @@
             this.tabPage3.Size = new System.Drawing.Size(1424, 1003);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Notes";
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // notesTab1
             // 
@@ -2817,7 +2906,7 @@
             this.Name = "MainWindow";
             this.Text = "Basic Battle Tracker";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ControlsBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -2860,6 +2949,10 @@
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabControl5.ResumeLayout(false);
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage13.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
             this.statusTab.ResumeLayout(false);
             this.encounterPage.ResumeLayout(false);
@@ -2875,11 +2968,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.ListView InitOrderView;
-        private System.Windows.Forms.ColumnHeader OrderColumn;
-        private System.Windows.Forms.ColumnHeader NameColumn;
-        private System.Windows.Forms.ColumnHeader InitValueColumn;
-        private System.Windows.Forms.ColumnHeader HP;
         private System.Windows.Forms.Button addFighterButton;
         private System.Windows.Forms.GroupBox ControlsBox;
         private System.Windows.Forms.Button initButton;
@@ -2904,7 +2992,6 @@
         private System.Windows.Forms.Button unholdButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button RemoveStatusButton;
-        private System.Windows.Forms.ColumnHeader Held;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button RefButton;
         private System.Windows.Forms.Button CMBButton;
@@ -3114,6 +3201,28 @@
         private System.Windows.Forms.ToolStripMenuItem unholdActionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCharacterSheetToolStripMenuItem;
         private System.Windows.Forms.BindingSource displayFighterSource;
+        private System.Windows.Forms.TabControl tabControl5;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.ListView InitOrderView;
+        private System.Windows.Forms.ColumnHeader OrderColumn;
+        private System.Windows.Forms.ColumnHeader NameColumn;
+        private System.Windows.Forms.ColumnHeader InitValueColumn;
+        private System.Windows.Forms.ColumnHeader HP;
+        private System.Windows.Forms.ColumnHeader Held;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.ListView lvwDying;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.ListView lvwDead;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
     }
 }
 

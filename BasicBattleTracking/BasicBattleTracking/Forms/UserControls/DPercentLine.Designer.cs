@@ -43,7 +43,6 @@
             this.xBox.TabIndex = 51;
             this.xBox.Text = "X";
             this.xBox.UseVisualStyleBackColor = true;
-            this.xBox.Click += new System.EventHandler(this.xBox_Click);
             // 
             // effectBox
             // 
@@ -51,7 +50,6 @@
             this.effectBox.Name = "effectBox";
             this.effectBox.Size = new System.Drawing.Size(440, 26);
             this.effectBox.TabIndex = 50;
-            this.effectBox.TextChanged += new System.EventHandler(this.effectBox_TextChanged);
             // 
             // maxBox
             // 
@@ -59,7 +57,6 @@
             this.maxBox.Name = "maxBox";
             this.maxBox.Size = new System.Drawing.Size(47, 26);
             this.maxBox.TabIndex = 49;
-            this.maxBox.TextChanged += new System.EventHandler(this.maxBox_TextChanged);
             // 
             // minBox
             // 
@@ -80,7 +77,6 @@
             this.Controls.Add(this.minBox);
             this.Name = "DPercentLine";
             this.Size = new System.Drawing.Size(675, 43);
-            this.Load += new System.EventHandler(this.DPercentLine_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

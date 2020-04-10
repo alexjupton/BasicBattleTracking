@@ -60,7 +60,6 @@
             this.mainTextField.Size = new System.Drawing.Size(1411, 972);
             this.mainTextField.TabIndex = 0;
             this.mainTextField.Text = "";
-            this.mainTextField.TextChanged += new System.EventHandler(this.mainTextField_TextChanged);
             // 
             // groupBox1
             // 
@@ -98,7 +97,6 @@
             this.recentPathsBox.Name = "recentPathsBox";
             this.recentPathsBox.Size = new System.Drawing.Size(110, 28);
             this.recentPathsBox.TabIndex = 4;
-            this.recentPathsBox.SelectedIndexChanged += new System.EventHandler(this.recentPathsBox_SelectedIndexChanged);
             // 
             // fileList
             // 
@@ -114,7 +112,6 @@
             this.fileList.TabIndex = 3;
             this.fileList.UseCompatibleStateImageBehavior = false;
             this.fileList.View = System.Windows.Forms.View.SmallIcon;
-            this.fileList.SelectedIndexChanged += new System.EventHandler(this.fileList_SelectedIndexChanged);
             // 
             // imageList1
             // 
@@ -131,7 +128,6 @@
             this.fileBrowseButton.TabIndex = 2;
             this.fileBrowseButton.Text = "Browse...";
             this.fileBrowseButton.UseVisualStyleBackColor = true;
-            this.fileBrowseButton.Click += new System.EventHandler(this.fileBrowseButton_Click);
             // 
             // label1
             // 
@@ -150,7 +146,6 @@
             this.filePathBox.Name = "filePathBox";
             this.filePathBox.Size = new System.Drawing.Size(280, 26);
             this.filePathBox.TabIndex = 0;
-            this.filePathBox.TextChanged += new System.EventHandler(this.filePathBox_TextChanged);
             // 
             // titleBox
             // 
@@ -168,7 +163,6 @@
             this.newNoteButton.TabIndex = 3;
             this.newNoteButton.Text = "New Note";
             this.newNoteButton.UseVisualStyleBackColor = true;
-            this.newNoteButton.Click += new System.EventHandler(this.newNoteButton_Click);
             // 
             // saveButton
             // 
@@ -178,7 +172,6 @@
             this.saveButton.TabIndex = 4;
             this.saveButton.Text = "Save Note";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // saveAsButton
             // 
@@ -188,7 +181,6 @@
             this.saveAsButton.TabIndex = 5;
             this.saveAsButton.Text = "Save Note As...";
             this.saveAsButton.UseVisualStyleBackColor = true;
-            this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
             // 
             // openNoteDialog
             // 
@@ -204,7 +196,6 @@
             this.laodNoteButton.TabIndex = 6;
             this.laodNoteButton.Text = "Load Note";
             this.laodNoteButton.UseVisualStyleBackColor = true;
-            this.laodNoteButton.Click += new System.EventHandler(this.laodNoteButton_Click);
             // 
             // NotesTab
             // 
@@ -220,7 +211,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NotesTab";
             this.Size = new System.Drawing.Size(2133, 1188);
-            this.Load += new System.EventHandler(this.NotesTab_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -67,7 +67,6 @@
             this.label2.Size = new System.Drawing.Size(34, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "Min";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -97,7 +96,6 @@
             this.LinePanel.Name = "LinePanel";
             this.LinePanel.Size = new System.Drawing.Size(730, 421);
             this.LinePanel.TabIndex = 7;
-            this.LinePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.LinePanel_Paint);
             // 
             // newLineButton
             // 
@@ -108,7 +106,6 @@
             this.newLineButton.TabIndex = 48;
             this.newLineButton.Text = "New Line";
             this.newLineButton.UseVisualStyleBackColor = true;
-            this.newLineButton.Click += new System.EventHandler(this.newLineButton_Click);
             // 
             // label5
             // 
@@ -128,7 +125,6 @@
             this.recalcButton.TabIndex = 49;
             this.recalcButton.Text = "Recalculate Values";
             this.recalcButton.UseVisualStyleBackColor = true;
-            this.recalcButton.Click += new System.EventHandler(this.recalcButton_Click);
             // 
             // optionsBox
             // 
@@ -151,7 +147,6 @@
             this.okButton.TabIndex = 51;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // cancButton
             // 
@@ -162,7 +157,6 @@
             this.cancButton.TabIndex = 52;
             this.cancButton.Text = "Cancel";
             this.cancButton.UseVisualStyleBackColor = true;
-            this.cancButton.Click += new System.EventHandler(this.cancButton_Click);
             // 
             // DPercentDesigner
             // 
@@ -182,7 +176,6 @@
             this.Controls.Add(this.label1);
             this.Name = "DPercentDesigner";
             this.Text = "New Table";
-            this.Load += new System.EventHandler(this.DPercentDesigner_Load);
             this.LinePanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Threading.Tasks;
-using BasicBattleTracking.Dice;
+using BattleCore.Dice;
 
-namespace BasicBattleTracking.FighterDetail
+namespace BattleCore.FighterDetail
 {
     [Serializable()]
     public class Fighter

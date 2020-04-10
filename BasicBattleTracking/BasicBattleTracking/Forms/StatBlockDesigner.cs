@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using BasicBattleTracking.FighterDetail;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -26,12 +26,12 @@ namespace BasicBattleTracking
 
         public List<Skill> skillList { get; set; }
         private bool editMode { get; set; }
-        
+
         public StatBlockDesigner()
         {
             attacks = new List<Attack>();
             skillList = new List<Skill>();
-            
+
             randy = new Random();
             InitializeComponent();
             dBox.SelectedIndex = 0;
@@ -39,10 +39,10 @@ namespace BasicBattleTracking
 
         private void StatBlockDesigner_Load(object sender, EventArgs e)
         {
-            dBox.SelectedIndex = 0;
-            ad = new AttackDesigner(this);
-            nameBox.Select();
-            
+            //dBox.SelectedIndex = 0;
+            //ad = new AttackDesigner(this);
+            //nameBox.Select();
+
         }
 
         private void A1NameBox_TextChanged(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace BasicBattleTracking
             bool errorFlag = false;
 
             string name = nameBox.Text;
-            if(name == "")
+            if (name == "")
             {
                 errorMessage += "Fighter must have a name.";
                 errorFlag = true;
@@ -75,7 +75,7 @@ namespace BasicBattleTracking
             int initBonus = 0;
             try
             {
-                
+
                 initBonus = Int32.Parse(InitBox.Text);
             }
             catch
@@ -111,7 +111,7 @@ namespace BasicBattleTracking
                     errorMessage += "\nBad HP formula.";
                     errorFlag = true;
                 }
-                
+
 
                 switch (dBox.SelectedIndex)
                 {
@@ -127,7 +127,7 @@ namespace BasicBattleTracking
                 newFighter.HPMult = HPMult;
                 newFighter.HPAdd = HPAdd;
                 newFighter.HP = HP;
-                
+
             }
             else
             {
@@ -281,10 +281,10 @@ namespace BasicBattleTracking
             }
             else
             {
-                if (parent.session.settings.UserStatBlockDirectory != "")
-                {
-                    initialPath = parent.session.settings.UserStatBlockDirectory;
-                }
+                //if (parent.session.settings.UserStatBlockDirectory != "")
+                //{
+                //    initialPath = parent.session.settings.UserStatBlockDirectory;
+                //}
             }
 
             if (!Directory.Exists(initialPath))
@@ -293,43 +293,43 @@ namespace BasicBattleTracking
             }
             save.InitialDirectory = initialPath;
 
-            
+
             if (newFighter != null)
             {
-                if (!saved)
-                {
-                    DialogResult confirm = save.ShowDialog();
-                    if (confirm == DialogResult.OK)
-                    {
-                        savePath = save.FileName;
-                        BattleIO saver = new BattleIO();
-                        saver.SaveStatBlock(savePath, newFighter);
-                        saved = true;
-                        mostRecentPath = Path.GetDirectoryName(save.FileName);
-                    }
-                }
-                else
-                {
-                   
-                    BattleIO saver = new BattleIO();
-                    saver.SaveStatBlock(savePath, newFighter);
-                }
+                //if (!saved)
+                //{
+                //    DialogResult confirm = save.ShowDialog();
+                //    if (confirm == DialogResult.OK)
+                //    {
+                //        savePath = save.FileName;
+                //        BattleIO saver = new BattleIO();
+                //        saver.SaveStatBlock(savePath, newFighter);
+                //        saved = true;
+                //        mostRecentPath = Path.GetDirectoryName(save.FileName);
+                //    }
+                //}
+                //else
+                //{
+
+                //    BattleIO saver = new BattleIO();
+                //    saver.SaveStatBlock(savePath, newFighter);
+                //}
             }
-            
+
         }
 
         private void Insert(Fighter newFighter)
         {
-            if (!editMode)
-            {
-                parent.AddFighter(newFighter);
-                parent.WriteToLog("Added " + newFighter.Name + ".");
-            }
-            else
-            {
-                parent.UpdateFighter(newFighter);
-                parent.WriteToLog(newFighter.Name + " updated.");
-            }
+            //if (!editMode)
+            //{
+            //    parent.AddFighter(newFighter);
+            //    parent.WriteToLog("Added " + newFighter.Name + ".");
+            //}
+            //else
+            //{
+            //    parent.UpdateFighter(newFighter);
+            //    parent.WriteToLog(newFighter.Name + " updated.");
+            //}
         }
 
         private void A1Dtype_SelectedIndexChanged(object sender, EventArgs e)
@@ -353,10 +353,10 @@ namespace BasicBattleTracking
             }
             else
             {
-                if (parent.session.settings.UserStatBlockDirectory != "")
-                {
-                    initialPath = parent.session.settings.UserStatBlockDirectory;
-                }
+                //if (parent.session.settings.UserStatBlockDirectory != "")
+                //{
+                //    initialPath = parent.session.settings.UserStatBlockDirectory;
+                //}
             }
 
             if (!Directory.Exists(initialPath))
@@ -367,14 +367,14 @@ namespace BasicBattleTracking
             DialogResult confirm = load.ShowDialog();
             if (confirm == DialogResult.OK)
             {
-                BattleIO loader = new BattleIO();
-                Fighter newFighter = loader.LoadStatBlock(load.FileName);
+                //BattleIO loader = new BattleIO();
+                //Fighter newFighter = loader.LoadStatBlock(load.FileName);
 
-                savePath = load.FileName;
+                //savePath = load.FileName;
 
-                mostRecentPath = Path.GetDirectoryName(load.FileName);
-                LoadFighter(load.FileName);
-                
+                //mostRecentPath = Path.GetDirectoryName(load.FileName);
+                //LoadFighter(load.FileName);
+
             }
 
         }
@@ -409,9 +409,9 @@ namespace BasicBattleTracking
                 }
 
             }
-            if(close)
-            this.Close();
-            
+            if (close)
+                this.Close();
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -426,12 +426,12 @@ namespace BasicBattleTracking
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ad = new AttackDesigner(this);
-            if(attacks.Count > 0)
-            {
-                ad.LoadAttacks(attacks);
-            }
-            ad.Show();
+            //ad = new AttackDesigner(this);
+            //if (attacks.Count > 0)
+            //{
+            //    ad.LoadAttacks(attacks);
+            //}
+            //ad.Show();
         }
 
         public void SetAttacks(List<Attack> attackList)
@@ -486,31 +486,31 @@ namespace BasicBattleTracking
                 HPAdd = 0;
             }
 
-                switch (dBox.SelectedIndex)
+            switch (dBox.SelectedIndex)
+            {
+                case 0: HPDieType = 4; break;
+                case 1: HPDieType = 6; break;
+                case 2: HPDieType = 8; break;
+                case 3: HPDieType = 10; break;
+                default: HPDieType = 12; break;
+
+            }
+
+            int hitDieHP = 0;
+
+            for (int i = 0; i < HPMult; i++)
+            {
+                int temp = 0;
+                lock (randy)
                 {
-                    case 0: HPDieType = 4; break;
-                    case 1: HPDieType = 6; break;
-                    case 2: HPDieType = 8; break;
-                    case 3: HPDieType = 10; break;
-                    default: HPDieType = 12; break;
-
+                    temp = randy.Next(HPDieType);
                 }
+                hitDieHP += temp;
+            }
 
-                int hitDieHP = 0;
+            HP = hitDieHP + HPAdd;
+            System.Threading.Thread.Sleep(1);
 
-                    for (int i = 0; i < HPMult; i++)
-                    {
-                        int temp = 0;
-                        lock (randy)
-                        {
-                            temp = randy.Next(HPDieType);
-                        }
-                        hitDieHP += temp;
-                    }
-                
-                HP = hitDieHP + HPAdd;
-                System.Threading.Thread.Sleep(1);
-            
             return HP;
         }
         private void multBox_TextChanged(object sender, EventArgs e)
@@ -550,7 +550,7 @@ namespace BasicBattleTracking
             {
                 score = Int32.Parse(inputBox.Text);
             }
-            catch 
+            catch
             {
                 return;
             }
@@ -567,7 +567,7 @@ namespace BasicBattleTracking
                 outputBox.Text = "-" + mod.ToString();
                 outputBox.ForeColor = Color.Red;
             }
-            
+
 
         }
 
@@ -624,7 +624,7 @@ namespace BasicBattleTracking
         private void button2_Click(object sender, EventArgs e)
         {
             SkillDesigner skillMaker = new SkillDesigner();
-            skillMaker.ParentWindow = this;
+            //skillMaker.ParentWindow = this;
             List<int> abilityMods = new List<int>();
             try
             {
@@ -642,13 +642,13 @@ namespace BasicBattleTracking
 
 
             skillMaker.SetAbilityMods(abilityMods);
-            if(skillList.Count > 0)
+            if (skillList.Count > 0)
             {
                 skillMaker.PopulateSkillLines(skillList);
             }
             else
             {
-                skillMaker.PopulateSkillLines(parent.session.settings.defaultSkillLoadout);
+                //skillMaker.PopulateSkillLines(parent.session.settings.defaultSkillLoadout);
             }
             skillMaker.Show();
         }
@@ -656,51 +656,51 @@ namespace BasicBattleTracking
         public void SetSkillList(List<Skill> inputList)
         {
             skillList = inputList;
-            skillCountLabel.Text = skillList.Count.ToString() +" Skills";
+            skillCountLabel.Text = skillList.Count.ToString() + " Skills";
         }
 
         private void LoadFighter(string path)
         {
-            BattleIO loader = new BattleIO();
-            Fighter newFighter = loader.LoadStatBlock(path);
+            //BattleIO loader = new BattleIO();
+            //Fighter newFighter = loader.LoadStatBlock(path);
 
-            savePath = path;
+            //savePath = path;
 
-            mostRecentPath = Path.GetDirectoryName(path);
-                userPopulated = false;
-                nameBox.Text = newFighter.Name;
-                HPValBox.Text = newFighter.HP.ToString();
-                multBox.Text = newFighter.HPMult.ToString();
-                addBox.Text = newFighter.HPAdd.ToString();
-                dBox.Text = newFighter.HPDieType.ToString();
-                ACValBox.Text = newFighter.AC.ToString();
-                FFBox.Text = newFighter.FlatFootedAC.ToString();
-                touchBox.Text = newFighter.TouchAC.ToString();
-                InitBox.Text = newFighter.InitBonus.ToString();
-                CMBBox.Text = newFighter.CMB.ToString();
-                CMDBox.Text = newFighter.CMD.ToString();
-                fortBox.Text = newFighter.fort.ToString();
-                refBox.Text = newFighter.reflex.ToString();
-                willBox.Text = newFighter.will.ToString();
-                attacks = newFighter.attacks;
-                attackCountLabel.Text = newFighter.attacks.Count + " attacks.";
-                skillCountLabel.Text = newFighter.skills.Count + " skills.";
-                skillList = newFighter.skills;
-                strBox.Text = newFighter.Str.ToString();
-                dexBox.Text = newFighter.Dex.ToString();
-                conBox.Text = newFighter.Con.ToString();
-                intBox.Text = newFighter.Int.ToString();
-                wisBox.Text = newFighter.Wis.ToString();
-                chaBox.Text = newFighter.Cha.ToString();
-                srBox.Text = newFighter.SpellResist.ToString();
-                drBox.Text = newFighter.DamageReduce.ToString();
-                bioBox.Text = newFighter.Notes;
-                userPopulated = true;
-                saved = true;
+            //mostRecentPath = Path.GetDirectoryName(path);
+            //userPopulated = false;
+            //nameBox.Text = newFighter.Name;
+            //HPValBox.Text = newFighter.HP.ToString();
+            //multBox.Text = newFighter.HPMult.ToString();
+            //addBox.Text = newFighter.HPAdd.ToString();
+            //dBox.Text = newFighter.HPDieType.ToString();
+            //ACValBox.Text = newFighter.AC.ToString();
+            //FFBox.Text = newFighter.FlatFootedAC.ToString();
+            //touchBox.Text = newFighter.TouchAC.ToString();
+            //InitBox.Text = newFighter.InitBonus.ToString();
+            //CMBBox.Text = newFighter.CMB.ToString();
+            //CMDBox.Text = newFighter.CMD.ToString();
+            //fortBox.Text = newFighter.fort.ToString();
+            //refBox.Text = newFighter.reflex.ToString();
+            //willBox.Text = newFighter.will.ToString();
+            //attacks = newFighter.attacks;
+            //attackCountLabel.Text = newFighter.attacks.Count + " attacks.";
+            //skillCountLabel.Text = newFighter.skills.Count + " skills.";
+            //skillList = newFighter.skills;
+            //strBox.Text = newFighter.Str.ToString();
+            //dexBox.Text = newFighter.Dex.ToString();
+            //conBox.Text = newFighter.Con.ToString();
+            //intBox.Text = newFighter.Int.ToString();
+            //wisBox.Text = newFighter.Wis.ToString();
+            //chaBox.Text = newFighter.Cha.ToString();
+            //srBox.Text = newFighter.SpellResist.ToString();
+            //drBox.Text = newFighter.DamageReduce.ToString();
+            //bioBox.Text = newFighter.Notes;
+            //userPopulated = true;
+            //saved = true;
         }
         public void InitiateFighter(Fighter newFighter)
         {
-            
+
             userPopulated = false;
             nameBox.Text = newFighter.Name;
             HPValBox.Text = newFighter.HP.ToString();
@@ -731,7 +731,7 @@ namespace BasicBattleTracking
             bioBox.Text = newFighter.Notes;
             userPopulated = true;
             editFighter = newFighter;
-            if(File.Exists(newFighter.savePath))
+            if (File.Exists(newFighter.savePath))
             {
                 saved = true;
                 mostRecentPath = Path.GetDirectoryName(newFighter.savePath);
@@ -741,7 +741,7 @@ namespace BasicBattleTracking
             SaveInsertButton.Text = "Save and Update";
             InsertButton.Text = "Update";
             editMode = true;
-            
+
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

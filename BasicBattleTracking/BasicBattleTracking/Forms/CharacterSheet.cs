@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using BasicBattleTracking.FighterDetail;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -47,16 +47,16 @@ namespace BasicBattleTracking
         {
             NameBox.Text = Character.Name;
             PropertyInfo[] charProps = Character.GetType().GetProperties();
-            foreach(Control c in GetAll(this, typeof(TextBox)))
+            foreach (Control c in GetAll(this, typeof(TextBox)))
             {
-                    TextBox next = c as TextBox;
-                    for(int i = 0; i < charProps.Length; i++)
+                TextBox next = c as TextBox;
+                for (int i = 0; i < charProps.Length; i++)
+                {
+                    if (charProps[i].Name == next.Name && Character.GetType().GetProperty(next.Name) != null)
                     {
-                        if (charProps[i].Name == next.Name && Character.GetType().GetProperty(next.Name) != null)
-                        {
-                            next.Text = Character.GetType().GetProperty(next.Name).GetValue(Character, null).ToString();
-                        }
+                        next.Text = Character.GetType().GetProperty(next.Name).GetValue(Character, null).ToString();
                     }
+                }
             }
         }
 
@@ -65,7 +65,7 @@ namespace BasicBattleTracking
             var controls = control.Controls.Cast<Control>();
             return controls.SelectMany(ctrl => GetAll(ctrl, type)).Concat(controls).Where(c => c.GetType() == type);
         }
-    
+
 
         private void nameBox_TextChanged(object sender, EventArgs e)
         {
@@ -73,7 +73,7 @@ namespace BasicBattleTracking
             this.Text = Character.Name + "'s Character Sheet";
             if (DMForm != null)
             {
-                DMForm.UpdateFighter(Character);
+                //DMForm.UpdateFighter(Character);
             }
         }
 
@@ -84,13 +84,13 @@ namespace BasicBattleTracking
 
             try
             {
-                property.SetValue(Character, Convert.ChangeType(Sender.Text, property.PropertyType ), null);
+                property.SetValue(Character, Convert.ChangeType(Sender.Text, property.PropertyType), null);
                 if (DMForm != null)
                 {
-                    DMForm.UpdateFighter(Character);
+                    //DMForm.UpdateFighter(Character);
                 }
 
-                
+
             }
             catch
             {
@@ -131,7 +131,7 @@ namespace BasicBattleTracking
         private void DisplayMod(TextBox inputBox, TextBox outputBox)
         {
             int score = 0;
-            if(inputBox.Text == "")
+            if (inputBox.Text == "")
             {
                 outputBox.Text = "";
                 score = -1;
@@ -169,7 +169,7 @@ namespace BasicBattleTracking
 
         private void OnClosing(object sender, EventArgs e)
         {
-            if(DMForm != null)
+            if (DMForm != null)
             {
                 DMForm.Visible = true;
             }

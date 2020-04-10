@@ -50,7 +50,6 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -61,7 +60,6 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -139,7 +137,6 @@
             this.statusBox.Name = "statusBox";
             this.statusBox.Size = new System.Drawing.Size(120, 21);
             this.statusBox.TabIndex = 1;
-            this.statusBox.SelectedIndexChanged += new System.EventHandler(this.statusBox_SelectedIndexChanged);
             // 
             // StatusWindow
             // 
@@ -160,7 +157,6 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "StatusWindow";
             this.Text = "StatusWindow";
-            this.Load += new System.EventHandler(this.StatusWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

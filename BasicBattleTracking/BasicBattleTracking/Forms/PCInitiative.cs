@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BasicBattleTracking.FighterDetail;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -108,6 +108,11 @@ namespace BasicBattleTracking
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void PC_Initiative_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

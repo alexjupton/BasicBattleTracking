@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -29,10 +30,10 @@ namespace BasicBattleTracking
         private void OKButton_Click(object sender, EventArgs e)
         {
             List<Attack> attacks = new List<Attack>();
-            foreach(AttackTab attack in tabs)
+            foreach (AttackTab attack in tabs)
             {
                 Attack newAttack = attack.BuildAttack();
-                if(newAttack != null)
+                if (newAttack != null)
                 {
                     attacks.Add(newAttack);
                 }
@@ -44,7 +45,7 @@ namespace BasicBattleTracking
                 this.Close();
             }
 
-            
+
         }
 
         private void nameBox_TextChanged(object sender, EventArgs e)
@@ -56,12 +57,12 @@ namespace BasicBattleTracking
         {
 
 
-            
+
         }
 
         private void addNewAttack()
         {
-            if(tabControl1.TabCount > 1)
+            if (tabControl1.TabCount > 1)
             {
                 tabControl1.TabPages.RemoveAt(tabControl1.TabCount - 1);
             }
@@ -70,7 +71,7 @@ namespace BasicBattleTracking
             AttackTab newAttackTab = new AttackTab(newTab);
             newAttackTab.attackNumber = count;
             newAttackTab.sendingForm = this;
-            
+
 
             newTab.Controls.Add(newAttackTab);
             newTab.Location = new System.Drawing.Point(4, 22);
@@ -94,7 +95,7 @@ namespace BasicBattleTracking
             newTab.UseVisualStyleBackColor = true;
             this.tabControl1.TabPages.Add(newTab);
 
-            
+
 
         }
 
@@ -137,12 +138,12 @@ namespace BasicBattleTracking
         {
             tabs.Clear();
             tabControl1.TabPages.Clear();
-            foreach(Attack a in attackList)
+            foreach (Attack a in attackList)
             {
-                
+
                 addNewAttack();
                 tabs.ElementAt(attackList.IndexOf(a)).AddAttack(a);
-                
+
             }
         }
 

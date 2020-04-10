@@ -50,7 +50,6 @@
             this.targetBox.Name = "targetBox";
             this.targetBox.Size = new System.Drawing.Size(82, 21);
             this.targetBox.TabIndex = 0;
-            this.targetBox.SelectedIndexChanged += new System.EventHandler(this.targetBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -69,7 +68,6 @@
             this.DamageBox.Name = "DamageBox";
             this.DamageBox.Size = new System.Drawing.Size(68, 20);
             this.DamageBox.TabIndex = 2;
-            this.DamageBox.TextChanged += new System.EventHandler(this.DamageBox_TextChanged);
             // 
             // label2
             // 
@@ -90,7 +88,6 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -101,7 +98,6 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // drCheckBox
             // 
@@ -112,7 +108,6 @@
             this.drCheckBox.TabIndex = 6;
             this.drCheckBox.Text = "Apply DR";
             this.drCheckBox.UseVisualStyleBackColor = true;
-            this.drCheckBox.CheckedChanged += new System.EventHandler(this.drCheckBox_CheckedChanged);
             // 
             // label3
             // 
@@ -131,7 +126,6 @@
             this.drBox.Name = "drBox";
             this.drBox.Size = new System.Drawing.Size(50, 20);
             this.drBox.TabIndex = 7;
-            this.drBox.TextChanged += new System.EventHandler(this.drBox_TextChanged);
             // 
             // label4
             // 
@@ -175,7 +169,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AttackForm";
             this.Text = "AttackForm";
-            this.Load += new System.EventHandler(this.AttackForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

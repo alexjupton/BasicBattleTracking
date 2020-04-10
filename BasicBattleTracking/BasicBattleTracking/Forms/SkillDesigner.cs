@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BattleCore.FighterDetail;
 
 namespace BasicBattleTracking
 {
@@ -20,7 +21,7 @@ namespace BasicBattleTracking
         private int selectedControl = 0;
         private List<int> abilityMods;
 
-        public StatBlockDesigner ParentWindow { get; set; }
+        //public StatBlockDesigner ParentWindow { get; set; }
         public SkillDesigner()
         {
             InitializeComponent();
@@ -38,14 +39,14 @@ namespace BasicBattleTracking
             int count = 0;
             if (skillInputList.Count <= 0)
             {
-                skillInputList = ParentWindow.parent.session.settings.defaultSkillLoadout;
+                //skillInputList = ParentWindow.parent.session.settings.defaultSkillLoadout;
             }
-            foreach(Skill s in skillInputList)
+            foreach (Skill s in skillInputList)
             {
                 SkillLine newLine = new SkillLine(this);
                 newLine.SetAbilityMods(abilityMods);
-                newLine.Location = new Point(INITIAL_X, INITIAL_Y + SPACING_INTERVAL * count );
-                addButton.Location = new Point (24, INITIAL_Y + SPACING_INTERVAL * (count + 1));
+                newLine.Location = new Point(INITIAL_X, INITIAL_Y + SPACING_INTERVAL * count);
+                addButton.Location = new Point(24, INITIAL_Y + SPACING_INTERVAL * (count + 1));
                 newLine.skillID = count;
                 newLine.InitiateSkill(s, abilityMods);
                 mainPanel.Controls.Add(newLine);
@@ -53,7 +54,7 @@ namespace BasicBattleTracking
                 count++;
             }
 
-            
+
 
         }
 
@@ -66,16 +67,16 @@ namespace BasicBattleTracking
         public void DeleteLine(int skillLineID)
         {
             selectedControl = skillLineID;
-            if(skillLineID < skillLines.Count)
+            if (skillLineID < skillLines.Count)
             {
                 SkillLine candidate = skillLines.ElementAt(skillLineID);
 
-                if(skillLineID != 0 || (skillLineID == 0 && skillLines.Count > 1))
+                if (skillLineID != 0 || (skillLineID == 0 && skillLines.Count > 1))
                 {
                     mainPanel.Controls.Remove(candidate);
                     skillLines.Remove(candidate);
 
-                    for(int i = skillLineID; i < skillLines.Count; i++)
+                    for (int i = skillLineID; i < skillLines.Count; i++)
                     {
                         skillLines.ElementAt(i).skillID--;
                     }
@@ -106,7 +107,7 @@ namespace BasicBattleTracking
             }
             mainPanel.Controls.Add(addButton);
 
-            if(selectedControl < skillLines.Count)
+            if (selectedControl < skillLines.Count)
             {
                 skillLines.ElementAt(selectedControl).Select();
             }
@@ -115,15 +116,15 @@ namespace BasicBattleTracking
         private void okButton_Click(object sender, EventArgs e)
         {
             List<Skill> finalList = new List<Skill>();
-            foreach(SkillLine line in skillLines)
+            foreach (SkillLine line in skillLines)
             {
                 Skill newSkill = line.GenerateSkill();
-                if(newSkill != null)
+                if (newSkill != null)
                 {
                     finalList.Add(newSkill);
                 }
             }
-            ParentWindow.SetSkillList(finalList);
+            //ParentWindow.SetSkillList(finalList);
             this.Close();
         }
 

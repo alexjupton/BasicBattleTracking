@@ -82,6 +82,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PC_Initiative";
             this.Text = "PC_Initiative";
+            this.Load += new System.EventHandler(this.PC_Initiative_Load);
             this.ResumeLayout(false);
 
         }
