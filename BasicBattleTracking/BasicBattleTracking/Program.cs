@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using BasicBattleTracking.Forms;
+using BattleCore;
 
 namespace BasicBattleTracking
 {
@@ -23,6 +24,7 @@ namespace BasicBattleTracking
         
         static void Main()
         {
+            LogMessageQueue.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

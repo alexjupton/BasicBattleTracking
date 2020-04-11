@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BasicBattleTracking.exe" size="1909760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BasicBattleTracking.exe" size="1911296">
       <assemblyIdentity name="BasicBattleTracking" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>J/K4kxy+pU3FYABiD8x6/K7S/eqxB4vP6mbSqcfmjpY=</dsig:DigestValue>
+        <dsig:DigestValue>3CkWuEVaBdTMAUBdbFGGxU1V8rlzVPCnkVPhpBQoSw4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BattleCore.dll" size="27648">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BattleCore.dll" size="31744">
       <assemblyIdentity name="BattleCore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+T+F0KtYTz32XTDmel8tpbFXZ1CwW7poaBPgZIHPT+s=</dsig:DigestValue>
+        <dsig:DigestValue>emFKTb3a0z3uYOjZcAheJmkb1uj9DXqRbEQzb+9gmS0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

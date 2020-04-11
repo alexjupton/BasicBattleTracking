@@ -27,19 +27,18 @@ namespace BasicBattleTracking
         {
             SplashScreen splashScreen = new SplashScreen();
             splashScreen.Show();
-            await Task.Delay(5000);
             splashScreen.Close();
             this.Visible = true;
             this.WindowState = FormWindowState.Maximized;
+            ObserveMessageQueue();
         }
 
-        public async Task UpdateFighterList()
+        public void UpdateFighterList()
         {
             List<Task> taskList = new List<Task>();
-            taskList.Add(Task.Run(() => FillFighters(InitOrderView, encounter.combatants)));
-            taskList.Add(Task.Run(() => FillFighters(lvwDying, encounter.dyingCombatants)));
-            taskList.Add(Task.Run(() => FillFighters(lvwDead, encounter.deadCombatants)));
-            await Task.WhenAll(taskList.ToArray());
+            FillFighters(InitOrderView, encounter.combatants);
+            FillFighters(lvwDying, encounter.dyingCombatants);
+            FillFighters(lvwDead, encounter.deadCombatants);
         }
 
         private void FillFighters(ListView listView, List<Fighter> fighters)
@@ -47,7 +46,7 @@ namespace BasicBattleTracking
             listView.Items.Clear();
             int order = 1;
             List<ListViewItem> addItems = new List<ListViewItem>();
-            foreach (Fighter f in encounter.combatants)
+            foreach (Fighter f in fighters)
             {
                 ListViewItem item = new ListViewItem(order.ToString());
                 item.SubItems.Add(f.Name);
@@ -57,16 +56,57 @@ namespace BasicBattleTracking
                 addItems.Add(item);
                 order++;
             }
+            listView.Items.AddRange(addItems.ToArray());
         }
 
         public void AddPC()
         {
+            AddFighterWindow addPC = new AddFighterWindow();
+            addPC.FormClosed += (sender, e) =>
+            {
+                if (addPC.DialogResult == DialogResult.OK)
+                {
+                    encounter.AddFighter(addPC.NewPC);
+                    UpdateFighterList();
+                }
+            };
+            addPC.Show();
+        }
 
+        public void AddNPC()
+        {
+            StatBlockDesigner addNPC = new StatBlockDesigner();
+            addNPC.FormClosed += async (sender, e) =>
+            {
+                if (addNPC.DialogResult == DialogResult.OK)
+                {
+                    await encounter.AddFighter(addNPC.addFighters);
+                    UpdateFighterList();
+                }
+            };
+            addNPC.Show();
+        }
+
+        private async Task ObserveMessageQueue()
+        {
+            while (true)
+            {
+                while (LogMessageQueue.msgQueue.Count > 0)
+                {
+                    LogBox.Text += $"{LogMessageQueue.msgQueue.Dequeue()}{Environment.NewLine}";
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            AddNPC();
         }
 
         private void addFighterButton_Click(object sender, EventArgs e)
         {
-
+            AddPC();
         }
     }
 }

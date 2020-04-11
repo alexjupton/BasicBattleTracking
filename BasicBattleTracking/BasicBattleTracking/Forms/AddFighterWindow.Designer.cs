@@ -34,9 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.InitBox = new System.Windows.Forms.TextBox();
-            this.HPBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.PCCheckBox = new System.Windows.Forms.CheckBox();
             this.OKButton = new System.Windows.Forms.Button();
             this.cButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -81,42 +78,9 @@
             this.InitBox.TabIndex = 3;
             this.InitBox.Text = "0";
             // 
-            // HPBox
-            // 
-            this.HPBox.Location = new System.Drawing.Point(90, 50);
-            this.HPBox.Margin = new System.Windows.Forms.Padding(2);
-            this.HPBox.Name = "HPBox";
-            this.HPBox.Size = new System.Drawing.Size(36, 20);
-            this.HPBox.TabIndex = 4;
-            this.HPBox.Text = "0";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(65, 54);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "HP";
-            // 
-            // PCCheckBox
-            // 
-            this.PCCheckBox.AutoSize = true;
-            this.PCCheckBox.Checked = true;
-            this.PCCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PCCheckBox.Enabled = false;
-            this.PCCheckBox.Location = new System.Drawing.Point(90, 91);
-            this.PCCheckBox.Margin = new System.Windows.Forms.Padding(2);
-            this.PCCheckBox.Name = "PCCheckBox";
-            this.PCCheckBox.Size = new System.Drawing.Size(85, 17);
-            this.PCCheckBox.TabIndex = 6;
-            this.PCCheckBox.Text = "Fighter is PC";
-            this.PCCheckBox.UseVisualStyleBackColor = true;
-            // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(55, 133);
+            this.OKButton.Location = new System.Drawing.Point(54, 87);
             this.OKButton.Margin = new System.Windows.Forms.Padding(2);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(72, 23);
@@ -128,7 +92,7 @@
             // cButton
             // 
             this.cButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cButton.Location = new System.Drawing.Point(169, 133);
+            this.cButton.Location = new System.Drawing.Point(168, 87);
             this.cButton.Margin = new System.Windows.Forms.Padding(2);
             this.cButton.Name = "cButton";
             this.cButton.Size = new System.Drawing.Size(67, 23);
@@ -140,7 +104,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(170, 53);
+            this.label4.Location = new System.Drawing.Point(60, 56);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 13);
@@ -149,7 +113,7 @@
             // 
             // dexBox
             // 
-            this.dexBox.Location = new System.Drawing.Point(200, 50);
+            this.dexBox.Location = new System.Drawing.Point(90, 53);
             this.dexBox.Margin = new System.Windows.Forms.Padding(2);
             this.dexBox.Name = "dexBox";
             this.dexBox.Size = new System.Drawing.Size(36, 20);
@@ -166,14 +130,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cButton;
-            this.ClientSize = new System.Drawing.Size(312, 170);
+            this.ClientSize = new System.Drawing.Size(312, 121);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dexBox);
             this.Controls.Add(this.cButton);
             this.Controls.Add(this.OKButton);
-            this.Controls.Add(this.PCCheckBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.HPBox);
             this.Controls.Add(this.InitBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -194,9 +155,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox InitBox;
-        private System.Windows.Forms.TextBox HPBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox PCCheckBox;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button cButton;
         private System.Windows.Forms.Label label4;

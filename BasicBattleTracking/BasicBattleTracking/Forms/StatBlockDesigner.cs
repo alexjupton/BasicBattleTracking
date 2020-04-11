@@ -23,6 +23,7 @@ namespace BasicBattleTracking
         private Random randy;
         private bool userPopulated = true;
         private Fighter editFighter;
+        public List<Fighter> addFighters;
 
         public List<Skill> skillList { get; set; }
         private bool editMode { get; set; }
@@ -35,14 +36,14 @@ namespace BasicBattleTracking
             randy = new Random();
             InitializeComponent();
             dBox.SelectedIndex = 0;
+            addFighters = new List<Fighter>();
         }
 
         private void StatBlockDesigner_Load(object sender, EventArgs e)
         {
-            //dBox.SelectedIndex = 0;
-            //ad = new AttackDesigner(this);
-            //nameBox.Select();
-
+            dBox.SelectedIndex = 0;
+            ad = new AttackDesigner(this);
+            nameBox.Select();
         }
 
         private void A1NameBox_TextChanged(object sender, EventArgs e)
@@ -263,6 +264,7 @@ namespace BasicBattleTracking
                         Insert(newFighter);
                     }
                 }
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
 
@@ -271,65 +273,12 @@ namespace BasicBattleTracking
 
         private void Save(Fighter newFighter)
         {
-            SaveFileDialog save = new SaveFileDialog();
-            save.DefaultExt = ".bin";
-            string initialPath = Program.defaultPath + @"\Stat Blocks";
-
-            if (mostRecentPath != "")
-            {
-                initialPath = mostRecentPath;
-            }
-            else
-            {
-                //if (parent.session.settings.UserStatBlockDirectory != "")
-                //{
-                //    initialPath = parent.session.settings.UserStatBlockDirectory;
-                //}
-            }
-
-            if (!Directory.Exists(initialPath))
-            {
-                Directory.CreateDirectory(initialPath);
-            }
-            save.InitialDirectory = initialPath;
-
-
-            if (newFighter != null)
-            {
-                //if (!saved)
-                //{
-                //    DialogResult confirm = save.ShowDialog();
-                //    if (confirm == DialogResult.OK)
-                //    {
-                //        savePath = save.FileName;
-                //        BattleIO saver = new BattleIO();
-                //        saver.SaveStatBlock(savePath, newFighter);
-                //        saved = true;
-                //        mostRecentPath = Path.GetDirectoryName(save.FileName);
-                //    }
-                //}
-                //else
-                //{
-
-                //    BattleIO saver = new BattleIO();
-                //    saver.SaveStatBlock(savePath, newFighter);
-                //}
-            }
 
         }
 
         private void Insert(Fighter newFighter)
         {
-            //if (!editMode)
-            //{
-            //    parent.AddFighter(newFighter);
-            //    parent.WriteToLog("Added " + newFighter.Name + ".");
-            //}
-            //else
-            //{
-            //    parent.UpdateFighter(newFighter);
-            //    parent.WriteToLog(newFighter.Name + " updated.");
-            //}
+            addFighters.Add(newFighter);
         }
 
         private void A1Dtype_SelectedIndexChanged(object sender, EventArgs e)
@@ -344,44 +293,13 @@ namespace BasicBattleTracking
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog load = new OpenFileDialog();
-            string initialPath = Program.defaultPath + @"\Stat Blocks";
-
-            if (mostRecentPath != "")
-            {
-                initialPath = mostRecentPath;
-            }
-            else
-            {
-                //if (parent.session.settings.UserStatBlockDirectory != "")
-                //{
-                //    initialPath = parent.session.settings.UserStatBlockDirectory;
-                //}
-            }
-
-            if (!Directory.Exists(initialPath))
-            {
-                Directory.CreateDirectory(initialPath);
-            }
-            load.InitialDirectory = initialPath;
-            DialogResult confirm = load.ShowDialog();
-            if (confirm == DialogResult.OK)
-            {
-                //BattleIO loader = new BattleIO();
-                //Fighter newFighter = loader.LoadStatBlock(load.FileName);
-
-                //savePath = load.FileName;
-
-                //mostRecentPath = Path.GetDirectoryName(load.FileName);
-                //LoadFighter(load.FileName);
-
-            }
+            
 
         }
 
         private void InsertButton_Click(object sender, EventArgs e)
         {
-            int insertCount = 0;
+            int insertCount = 1;
             try
             {
                 insertCount = Int32.Parse(iCountBox.Text);
@@ -410,7 +328,10 @@ namespace BasicBattleTracking
 
             }
             if (close)
+            {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
+            }
 
         }
 

@@ -93,7 +93,6 @@
             this.rollResultLabel = new System.Windows.Forms.Label();
             this.damageResult = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.skillsTab1 = new BasicBattleTracking.SkillsTab();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label55 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -165,7 +164,6 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.npcSRBox = new System.Windows.Forms.TextBox();
-            this.displayFighterSource = new System.Windows.Forms.BindingSource(this.components);
             this.label53 = new System.Windows.Forms.Label();
             this.npcSPBox = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
@@ -282,8 +280,12 @@
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dPercentTableControls = new BasicBattleTracking.DPercentPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.displayFighterSource = new System.Windows.Forms.BindingSource(this.components);
+            this.skillsTab1 = new BasicBattleTracking.SkillsTab();
+            this.dPercentTableControls = new BasicBattleTracking.DPercentPanel();
             this.notesTab1 = new BasicBattleTracking.NotesTab();
             this.ControlsBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -305,7 +307,6 @@
             this.fighterInfoBox.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage9.SuspendLayout();
@@ -325,11 +326,12 @@
             this.groupBox10.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).BeginInit();
             this.SuspendLayout();
             // 
             // addFighterButton
             // 
-            this.addFighterButton.Location = new System.Drawing.Point(4, 16);
+            this.addFighterButton.Location = new System.Drawing.Point(107, 17);
             this.addFighterButton.Margin = new System.Windows.Forms.Padding(2);
             this.addFighterButton.Name = "addFighterButton";
             this.addFighterButton.Size = new System.Drawing.Size(93, 21);
@@ -340,6 +342,8 @@
             // 
             // ControlsBox
             // 
+            this.ControlsBox.Controls.Add(this.button2);
+            this.ControlsBox.Controls.Add(this.button1);
             this.ControlsBox.Controls.Add(this.editButton);
             this.ControlsBox.Controls.Add(this.button5);
             this.ControlsBox.Controls.Add(this.removeFighterButton);
@@ -348,7 +352,7 @@
             this.ControlsBox.Margin = new System.Windows.Forms.Padding(2);
             this.ControlsBox.Name = "ControlsBox";
             this.ControlsBox.Padding = new System.Windows.Forms.Padding(2);
-            this.ControlsBox.Size = new System.Drawing.Size(257, 93);
+            this.ControlsBox.Size = new System.Drawing.Size(257, 114);
             this.ControlsBox.TabIndex = 2;
             this.ControlsBox.TabStop = false;
             this.ControlsBox.Text = "Global Controls";
@@ -356,7 +360,7 @@
             // editButton
             // 
             this.editButton.Enabled = false;
-            this.editButton.Location = new System.Drawing.Point(110, 49);
+            this.editButton.Location = new System.Drawing.Point(107, 79);
             this.editButton.Margin = new System.Windows.Forms.Padding(2);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(93, 21);
@@ -366,18 +370,19 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(110, 17);
+            this.button5.Location = new System.Drawing.Point(107, 47);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(93, 21);
             this.button5.TabIndex = 6;
             this.button5.Text = "Add NPC";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // removeFighterButton
             // 
             this.removeFighterButton.Enabled = false;
-            this.removeFighterButton.Location = new System.Drawing.Point(4, 48);
+            this.removeFighterButton.Location = new System.Drawing.Point(4, 46);
             this.removeFighterButton.Margin = new System.Windows.Forms.Padding(2);
             this.removeFighterButton.Name = "removeFighterButton";
             this.removeFighterButton.Size = new System.Drawing.Size(93, 22);
@@ -401,7 +406,7 @@
             this.groupBox1.Controls.Add(this.initButton);
             this.groupBox1.Controls.Add(this.prevButton);
             this.groupBox1.Controls.Add(this.nextButton);
-            this.groupBox1.Location = new System.Drawing.Point(310, 132);
+            this.groupBox1.Location = new System.Drawing.Point(312, 192);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -590,7 +595,7 @@
             this.groupBox3.Controls.Add(this.unholdButton);
             this.groupBox3.Controls.Add(this.AttackButton);
             this.groupBox3.Controls.Add(this.holdButton);
-            this.groupBox3.Location = new System.Drawing.Point(483, 132);
+            this.groupBox3.Location = new System.Drawing.Point(485, 192);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(185, 113);
             this.groupBox3.TabIndex = 10;
@@ -1077,15 +1082,6 @@
             this.tabPage5.Size = new System.Drawing.Size(697, 340);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Skills";
-            // 
-            // skillsTab1
-            // 
-            this.skillsTab1.Location = new System.Drawing.Point(0, 0);
-            this.skillsTab1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.skillsTab1.Name = "skillsTab1";
-            this.skillsTab1.ParentWindow = null;
-            this.skillsTab1.Size = new System.Drawing.Size(697, 340);
-            this.skillsTab1.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -1768,10 +1764,6 @@
             this.npcSRBox.Name = "npcSRBox";
             this.npcSRBox.Size = new System.Drawing.Size(45, 20);
             this.npcSRBox.TabIndex = 22;
-            // 
-            // displayFighterSource
-            // 
-            this.displayFighterSource.DataSource = typeof(BattleCore.FighterDetail.Fighter);
             // 
             // label53
             // 
@@ -2651,7 +2643,6 @@
             this.InitOrderView.HideSelection = false;
             this.InitOrderView.Location = new System.Drawing.Point(3, 3);
             this.InitOrderView.Margin = new System.Windows.Forms.Padding(2);
-            this.InitOrderView.MultiSelect = false;
             this.InitOrderView.Name = "InitOrderView";
             this.InitOrderView.Size = new System.Drawing.Size(280, 270);
             this.InitOrderView.TabIndex = 1;
@@ -2707,7 +2698,6 @@
             this.lvwDying.HideSelection = false;
             this.lvwDying.Location = new System.Drawing.Point(3, 3);
             this.lvwDying.Margin = new System.Windows.Forms.Padding(2);
-            this.lvwDying.MultiSelect = false;
             this.lvwDying.Name = "lvwDying";
             this.lvwDying.Size = new System.Drawing.Size(280, 270);
             this.lvwDying.TabIndex = 2;
@@ -2763,7 +2753,6 @@
             this.lvwDead.HideSelection = false;
             this.lvwDead.Location = new System.Drawing.Point(3, 3);
             this.lvwDead.Margin = new System.Windows.Forms.Padding(2);
-            this.lvwDead.MultiSelect = false;
             this.lvwDead.Name = "lvwDead";
             this.lvwDead.Size = new System.Drawing.Size(280, 270);
             this.lvwDead.TabIndex = 2;
@@ -2863,16 +2852,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Reference";
             // 
-            // dPercentTableControls
-            // 
-            this.dPercentTableControls.AutoSize = true;
-            this.dPercentTableControls.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.dPercentTableControls.Location = new System.Drawing.Point(2, 5);
-            this.dPercentTableControls.Margin = new System.Windows.Forms.Padding(1);
-            this.dPercentTableControls.Name = "dPercentTableControls";
-            this.dPercentTableControls.Size = new System.Drawing.Size(0, 0);
-            this.dPercentTableControls.TabIndex = 1;
-            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
@@ -2884,6 +2863,50 @@
             this.tabPage3.Size = new System.Drawing.Size(1424, 1003);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Notes";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(4, 17);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 21);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Set Inactive";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(4, 78);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(93, 22);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "Edit Initiative";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // displayFighterSource
+            // 
+            this.displayFighterSource.DataSource = typeof(BattleCore.FighterDetail.Fighter);
+            // 
+            // skillsTab1
+            // 
+            this.skillsTab1.Location = new System.Drawing.Point(0, 0);
+            this.skillsTab1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.skillsTab1.Name = "skillsTab1";
+            this.skillsTab1.ParentWindow = null;
+            this.skillsTab1.Size = new System.Drawing.Size(697, 340);
+            this.skillsTab1.TabIndex = 0;
+            // 
+            // dPercentTableControls
+            // 
+            this.dPercentTableControls.AutoSize = true;
+            this.dPercentTableControls.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.dPercentTableControls.Location = new System.Drawing.Point(2, 5);
+            this.dPercentTableControls.Margin = new System.Windows.Forms.Padding(1);
+            this.dPercentTableControls.Name = "dPercentTableControls";
+            this.dPercentTableControls.Size = new System.Drawing.Size(0, 0);
+            this.dPercentTableControls.TabIndex = 1;
             // 
             // notesTab1
             // 
@@ -2933,7 +2956,6 @@
             this.tabControl3.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -2962,6 +2984,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.displayFighterSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3223,6 +3246,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
