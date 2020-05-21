@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "biLyAbmwpX4SS4mjGDWCo7y5QRJM8rbDRvY2v2kUieBMmZeHu/5tNSRtOZri/ib4YmnvCACak/fZdjhlgV7heQ==",
+  "dgSpecHash": "8e59l2f3WPSktcSougIoOwmvATGY3FDU7IaQ0ZzdxPBNpWxgnxooP7AluAnOjhUD/ups1Z4ydKi9/xqL47PsFg==",
   "success": true,
-  "projectFilePath": "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
+  "projectFilePath": "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

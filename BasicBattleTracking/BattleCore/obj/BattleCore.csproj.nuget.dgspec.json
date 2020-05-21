@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\BattleCore.csproj": {}
+    "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\BattleCore.csproj": {}
   },
   "projects": {
-    "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\BattleCore.csproj": {
+    "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\BattleCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
+        "projectUniqueName": "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
         "projectName": "BattleCore",
-        "projectPath": "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
+        "projectPath": "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\BattleCore.csproj",
         "packagesPath": "C:\\Users\\TheBoss\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\TheBoss\\Desktop\\Basic Battle Tracking\\BasicBattleTracking\\BasicBattleTracking\\BattleCore\\obj\\",
+        "outputPath": "D:\\Users\\TheBoss\\Source\\Repos\\BasicBattleTracking\\BattleCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -58,7 +58,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300-preview-015048\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
