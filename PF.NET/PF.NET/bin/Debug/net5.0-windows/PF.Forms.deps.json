@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "PF.Forms/1.0.0": {
+        "dependencies": {
+          "PF.API": "1.0.0"
+        },
+        "runtime": {
+          "PF.Forms.dll": {}
+        }
+      },
+      "PF.API/1.0.0": {
+        "runtime": {
+          "PF.API.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PF.Forms/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PF.API/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
